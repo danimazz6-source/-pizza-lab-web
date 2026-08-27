@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fina Protein Lab — Tu pedido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2B2622;
+    --cream:#FBF7F0;
+    --cream-2:#F3ECDF;
+    --red:#E13A3A;
+    --red-dark:#B72A2A;
+    --grey-mid:#8C8177;
+    --line:#E7DECD;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--cream); color:var(--charcoal); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:720px; margin:0 auto; padding:40px 24px 80px;}
+  h1,h2,.display{font-family:'Archivo', sans-serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+
+  .logo{display:flex; align-items:center; gap:11px; font-size:17px; font-weight:800; margin-bottom:36px;}
+  .mark{width:34px; height:34px; border-radius:50%; background:var(--red); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .mark svg{width:19px; height:19px;}
+
+  h1{font-size:clamp(28px,4vw,36px); font-weight:800; letter-spacing:-0.02em; margin-bottom:8px;}
+  .sub{font-size:14.5px; color:var(--grey-mid); margin-bottom:36px;}
+
+  .item{
+    display:flex; align-items:center; gap:16px;
+    background:var(--cream-2); border-radius:18px; padding:18px 20px; margin-bottom:12px;
+  }
+  .item-info{flex:1;}
+  .item-info h3{font-size:15.5px; font-weight:700;}
+  .item-info p{font-size:12.5px; color:var(--grey-mid); margin-top:2px;}
+  .item-price{font-family:'IBM Plex Mono'; font-size:14px; font-weight:600; color:var(--red-dark); min-width:78px; text-align:right;}
+  .stepper{display:flex; align-items:center; gap:10px;}
+  .stepper button{
+    width:30px; height:30px; border-radius:50%; border:1px solid var(--charcoal); background:var(--cream);
+    font-family:'IBM Plex Mono'; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    line-height:1; color:var(--charcoal);
+  }
+  .stepper button:hover{background:var(--charcoal); color:var(--cream);}
+  .stepper span{font-family:'IBM Plex Mono'; font-weight:600; font-size:14px; min-width:16px; text-align:center;}
+
+  .summary{
+    margin-top:28px; background:var(--charcoal); color:var(--cream); border-radius:22px; padding:26px 24px;
+  }
+  .summary-row{display:flex; justify-content:space-between; font-size:14px; padding:7px 0; color:rgba(251,247,240,0.7);}
+  .summary-row.total{
+    border-top:1px solid rgba(251,247,240,0.18); margin-top:8px; padding-top:14px;
+    font-size:18px; font-weight:700; color:var(--cream);
+  }
+  .summary-row.total .mono{font-size:22px; color:var(--red);}
+
+  .pay-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    background:var(--red); color:var(--cream); font-weight:700; font-size:15.5px;
+    padding:16px; border-radius:100px; border:none; cursor:pointer; margin-top:20px;
+    transition:background .18s;
+  }
+  .pay-btn:hover{background:var(--red-dark);}
+  .pay-btn:disabled{opacity:0.5; cursor:not-allowed;}
+
+  .note{font-size:12px; color:var(--grey-mid); text-align:center; margin-top:14px; line-height:1.5;}
+  .error{display:none; background:#FBE3E1; color:var(--red-dark); font-size:13px; padding:12px 16px; border-radius:12px; margin-top:16px;}
+  .error.show{display:block;}
+
+  .delivery-form{margin-top:28px; background:var(--cream-2); border-radius:18px; padding:22px 20px;}
+  .delivery-form h2{font-size:15.5px; font-weight:700; margin-bottom:4px;}
+  .delivery-form .sub2{font-size:12.5px; color:var(--grey-mid); margin-bottom:18px;}
+  .field{margin-bottom:14px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block; font-size:12.5px; font-weight:600; margin-bottom:6px;}
+  .field input, .field textarea{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 13px;
+    font-family:'Inter'; font-size:14px; background:var(--cream); color:var(--charcoal);
+  }
+  .field input:focus, .field textarea:focus{outline:2px solid var(--charcoal); outline-offset:1px;}
+  .field-row{display:flex; gap:10px;}
+  .field-row .field{flex:1;}
+  .field-error{font-size:11.5px; color:var(--red-dark); margin-top:4px; display:none;}
+  .field.invalid input, .field.invalid textarea{border-color:var(--red);}
+  .field.invalid .field-error{display:block;}
+
+  .promo{
+    background:var(--charcoal); border-radius:16px; padding:18px 20px; margin-bottom:24px;
+  }
+  .promo-tiers{display:flex; gap:6px;}
+  .promo-tier{
+    flex:1; text-align:center; font-family:'IBM Plex Mono'; padding:10px 6px; border-radius:12px;
+    background:transparent; color:rgba(251,247,240,0.55); transition:background .15s, color .15s;
+  }
+  .promo-tier .q{display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;}
+  .promo-tier .p{display:block; font-size:14px; font-weight:600;}
+  .promo-tier .per-unit{display:block; font-size:10px; font-weight:500; opacity:0.6; margin-top:2px;}
+  .promo-tier .unit{font-size:10px; font-weight:500; opacity:0.65; text-transform:lowercase;}
+  .promo-tier.active{background:var(--red); color:var(--cream);}
+  .promo-next{font-size:12px; color:rgba(251,247,240,0.6); margin-top:12px; text-align:center;}
+  .promo-next b{color:var(--cream);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#FBF7F0" stroke-width="1.6"/><path d="M12 3v9l6 3" stroke="#FBF7F0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    Fina Protein Lab
+  </div>
+
+  <h1>Armá tu pedido</h1>
+  <p class="sub">Elegí cantidades por sabor. Entrega los miércoles de 10 a 19h por CABA.</p>
+
+  <div class="promo">
+    <div class="promo-tiers" id="promo-tiers"></div>
+    <div class="promo-next" id="promo-next"></div>
+  </div>
+
+  <div id="items"></div>
+
+  <div class="summary">
+    <div class="summary-row"><span>Pizzas</span><span id="qty-total" class="mono">0</span></div>
+    <div class="summary-row total"><span>Total</span><span id="price-total" class="mono">$0</span></div>
+  </div>
+
+  <div class="delivery-form">
+    <h2>Datos de entrega</h2>
+    <div class="sub2">Los necesitamos para coordinar tu pedido del miércoles. Por ahora repartimos solo dentro de CABA.</div>
+
+    <div class="field" id="field-nombre">
+      <label for="nombre">Nombre y apellido</label>
+      <input type="text" id="nombre" autocomplete="name">
+      <div class="field-error">Completá tu nombre</div>
+    </div>
+
+    <div class="field" id="field-telefono">
+      <label for="telefono">Teléfono (WhatsApp)</label>
+      <input type="tel" id="telefono" autocomplete="tel" placeholder="11 xxxx-xxxx">
+      <div class="field-error">Completá un teléfono de contacto</div>
+    </div>
+
+    <div class="field" id="field-direccion">
+      <label for="direccion">Dirección (calle, altura, piso/depto)</label>
+      <input type="text" id="direccion" autocomplete="street-address">
+      <div class="field-error">Completá la dirección de entrega</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field" id="field-barrio">
+        <label for="barrio">Barrio</label>
+        <input type="text" id="barrio">
+        <div class="field-error">Completá el barrio</div>
+      </div>
+      <div class="field" id="field-cp">
+        <label for="cp">Código postal</label>
+        <input type="text" id="cp">
+        <div class="field-error">Completá el código postal</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="notas">Notas para la entrega (opcional)</label>
+      <textarea id="notas" rows="2" placeholder="Timbre, referencias, horario preferido..."></textarea>
+    </div>
+  </div>
+
+  <button class="pay-btn" id="pay-btn" disabled>Pagar con Mercado Pago →</button>
+  <div class="error" id="error-box"></div>
+  <p class="note">Pago 100% seguro procesado por Mercado Pago. El envío corre por cuenta del cliente.</p>
+</div>
+
+<script>
+  // ---- CONFIGURACIÓN ----
+  // Precio por pizza según la cantidad total de PACKS del pedido (descuento por volumen).
+  // Baja $875 por pizza en promedio por cada pack adicional, hasta tocar el piso de $14.000/pizza.
+  // 1 pack = $35.000 · 2 packs = $66.500 · 3 packs = $94.500 · 4 packs = $119.000 · 5+ packs = $14.000 c/u fijo.
+  const PACK_SIZE = 2;
+  const PACK_BASE_UNIT = 18000;   // precio por pizza comprando 1 solo pack
+  const PACK_STEP = 750;          // baja esto por pizza por cada pack adicional
+  const PACK_FLOOR = 15000;       // precio mínimo por pizza, nunca baja de acá
+
+  function unitPriceForPacks(totalPacks){
+    if(totalPacks <= 0) return PACK_BASE_UNIT;
+    return Math.max(PACK_BASE_UNIT - (totalPacks - 1) * PACK_STEP, PACK_FLOOR);
+  }
+
+  function packTotalPrice(totalPacks){
+    return unitPriceForPacks(totalPacks) * PACK_SIZE;
+  }
+
+  // Tramos que se muestran en la barra de arriba del carrito (a modo de referencia visual).
+  const DISPLAY_TIERS = [1, 2, 3, 4, 5].map(packs => ({
+    packs,
+    label: packs < 5 ? packs + (packs === 1 ? " pack" : " packs") : "5+ packs",
+    unit: unitPriceForPacks(packs),
+  }));
+
+  // URL de tu backend ya desplegado (ver /backend/README.md). Reemplazar antes de publicar.
+  const BACKEND_URL = "https://pizza-lab-backend.onrender.com/create-preference";
+
+  const FLAVORS = [
+    { id: "muzzarella", name: "Muzzarella", desc: "Salsa de tomate, muzzarella y orégano." },
+    { id: "portobello", name: "Portobello", desc: "Muzzarella y hongos portobello grillados." },
+    { id: "cebolla", name: "Cebolla", desc: "Muzzarella y cebolla caramelizada." },
+    { id: "pepperoni", name: "Pepperoni", desc: "Doble porción de pepperoni." },
+  ];
+
+  const state = {};
+  FLAVORS.forEach(f => state[f.id] = 0); // cantidad de PACKS por sabor, no de pizzas
+
+  const itemsEl = document.getElementById('items');
+  const qtyTotalEl = document.getElementById('qty-total');
+  const priceTotalEl = document.getElementById('price-total');
+  const payBtn = document.getElementById('pay-btn');
+  const errorBox = document.getElementById('error-box');
+
+  function fmt(n){ return "$" + n.toLocaleString('es-AR'); }
+
+  function renderPromo(totalPacks){
+    const currentUnit = unitPriceForPacks(totalPacks);
+    const tiersEl = document.getElementById('promo-tiers');
+    const nextEl = document.getElementById('promo-next');
+
+    tiersEl.innerHTML = DISPLAY_TIERS.map(t => {
+      const isActive = totalPacks > 0 && (
+        (t.packs < 5 && totalPacks === t.packs) ||
+        (t.packs === 5 && totalPacks >= 5)
+      );
+      return `
+      <div class="promo-tier ${isActive ? 'active' : ''}">
+        <span class="q">${t.label}</span>
+        <span class="p">${fmt(t.unit * PACK_SIZE)}</span>
+        <span class="per-unit">${fmt(t.unit)} c/u</span>
+      </div>
+    `;
+    }).join('');
+
+    if(totalPacks === 0){
+      nextEl.innerHTML = `Elegí tus packs — cuantos más sumes, menos pagás por pizza`;
+    } else if(totalPacks < 5){
+      const nextUnit = unitPriceForPacks(totalPacks + 1);
+      nextEl.innerHTML = `Sumá 1 pack más y pagás <b>${fmt(nextUnit * PACK_SIZE)}</b> el pack (${fmt(nextUnit)} c/u)`;
+    } else {
+      nextEl.innerHTML = `Ya estás en el precio más bajo: <b>${fmt(PACK_FLOOR)}</b> c/u`;
+    }
+  }
+
+  function render(){
+    const totalPacks = Object.values(state).reduce((a,b) => a + b, 0);
+    const unit = unitPriceForPacks(totalPacks);
+    const packPrice = unit * PACK_SIZE;
+
+    itemsEl.innerHTML = FLAVORS.map(f => {
+      const packs = state[f.id];
+      return `
+      <div class="item">
+        <div class="item-info">
+          <h3>Pack ${f.name} x2</h3>
+          <p>${f.desc}</p>
+          <p style="margin-top:4px; font-weight:600; color:${packs > 0 ? 'var(--red-dark)' : 'var(--grey-mid)'};">
+            ${packs > 0 ? packs + ' pack' + (packs > 1 ? 's' : '') + ' — ' + (packs * PACK_SIZE) + ' pizzas' : '2 pizzas por pack'}
+          </p>
+        </div>
+        <div class="item-price">${fmt(packPrice)}<span style="display:block; font-size:10px; font-weight:500; opacity:0.6; text-transform:none;">el pack</span></div>
+        <div class="stepper">
+          <button onclick="changeQty('${f.id}', -1)" aria-label="Restar pack">–</button>
+          <span>${packs}</span>
+          <button onclick="changeQty('${f.id}', 1)" aria-label="Sumar pack">+</button>
+        </div>
+      </div>
+    `;
+    }).join('');
+
+    const totalPrice = totalPacks * packPrice;
+    qtyTotalEl.textContent = totalPacks * PACK_SIZE;
+    priceTotalEl.textContent = fmt(totalPrice);
+    payBtn.disabled = totalPacks === 0;
+    renderPromo(totalPacks);
+  }
+
+  window.changeQty = function(id, delta){
+    state[id] = Math.max(0, state[id] + delta);
+    render();
+  };
+
+  function validateDelivery(){
+    const required = [
+      ['nombre', 'field-nombre'],
+      ['telefono', 'field-telefono'],
+      ['direccion', 'field-direccion'],
+      ['barrio', 'field-barrio'],
+      ['cp', 'field-cp'],
+    ];
+    let valid = true;
+    let firstInvalidEl = null;
+
+    required.forEach(([id, fieldId]) => {
+      const input = document.getElementById(id);
+      const field = document.getElementById(fieldId);
+      const isEmpty = input.value.trim() === '';
+      field.classList.toggle('invalid', isEmpty);
+      if(isEmpty){
+        valid = false;
+        if(!firstInvalidEl) firstInvalidEl = input;
+      }
+    });
+
+    if(firstInvalidEl) firstInvalidEl.focus();
+    return valid;
+  }
+
+  function getDeliveryData(){
+    return {
+      nombre: document.getElementById('nombre').value.trim(),
+      telefono: document.getElementById('telefono').value.trim(),
+      direccion: document.getElementById('direccion').value.trim(),
+      barrio: document.getElementById('barrio').value.trim(),
+      cp: document.getElementById('cp').value.trim(),
+      notas: document.getElementById('notas').value.trim(),
+    };
+  }
+
+  payBtn.addEventListener('click', async () => {
+    errorBox.classList.remove('show');
+    const totalPacks = Object.values(state).reduce((a,b) => a + b, 0);
+    const unit = unitPriceForPacks(totalPacks);
+    const items = FLAVORS
+      .filter(f => state[f.id] > 0)
+      .map(f => ({
+        title: "Fina Protein Lab — Pack " + f.name + " x2",
+        quantity: state[f.id] * PACK_SIZE,
+        unit_price: unit
+      }));
+
+    if(items.length === 0) return;
+
+    if(!validateDelivery()){
+      errorBox.textContent = "Completá los datos de entrega antes de pagar.";
+      errorBox.classList.add('show');
+      return;
+    }
+
+    const customer = getDeliveryData();
+
+    payBtn.disabled = true;
+    payBtn.textContent = "Redirigiendo a Mercado Pago…";
+
+    try{
+      const res = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items, customer })
+      });
+      if(!res.ok) throw new Error("Error del servidor");
+      const data = await res.json();
+      if(data.init_point){
+        window.location.href = data.init_point;
+      } else {
+        throw new Error("No se recibió el link de pago");
+      }
+    } catch(err){
+      errorBox.textContent = "No pudimos conectar con Mercado Pago. Intentá de nuevo en unos segundos.";
+      errorBox.classList.add('show');
+      payBtn.disabled = false;
+      payBtn.textContent = "Pagar con Mercado Pago →";
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>
