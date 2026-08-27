@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza Lab — Tu pedido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2B2622;
+    --cream:#FBF7F0;
+    --cream-2:#F3ECDF;
+    --red:#E13A3A;
+    --red-dark:#B72A2A;
+    --grey-mid:#8C8177;
+    --line:#E7DECD;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--cream); color:var(--charcoal); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:720px; margin:0 auto; padding:40px 24px 80px;}
+  h1,h2,.display{font-family:'Archivo', sans-serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+
+  .logo{display:flex; align-items:center; gap:11px; font-size:17px; font-weight:800; margin-bottom:36px;}
+  .mark{width:34px; height:34px; border-radius:50%; background:var(--red); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .mark svg{width:19px; height:19px;}
+
+  h1{font-size:clamp(28px,4vw,36px); font-weight:800; letter-spacing:-0.02em; margin-bottom:8px;}
+  .sub{font-size:14.5px; color:var(--grey-mid); margin-bottom:36px;}
+
+  .item{
+    display:flex; align-items:center; gap:16px;
+    background:var(--cream-2); border-radius:18px; padding:18px 20px; margin-bottom:12px;
+  }
+  .item-info{flex:1;}
+  .item-info h3{font-size:15.5px; font-weight:700;}
+  .item-info p{font-size:12.5px; color:var(--grey-mid); margin-top:2px;}
+  .item-price{font-family:'IBM Plex Mono'; font-size:14px; font-weight:600; color:var(--red-dark); min-width:78px; text-align:right;}
+  .stepper{display:flex; align-items:center; gap:10px;}
+  .stepper button{
+    width:30px; height:30px; border-radius:50%; border:1px solid var(--charcoal); background:var(--cream);
+    font-family:'IBM Plex Mono'; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    line-height:1; color:var(--charcoal);
+  }
+  .stepper button:hover{background:var(--charcoal); color:var(--cream);}
+  .stepper span{font-family:'IBM Plex Mono'; font-weight:600; font-size:14px; min-width:16px; text-align:center;}
+
+  .summary{
+    margin-top:28px; background:var(--charcoal); color:var(--cream); border-radius:22px; padding:26px 24px;
+  }
+  .summary-row{display:flex; justify-content:space-between; font-size:14px; padding:7px 0; color:rgba(251,247,240,0.7);}
+  .summary-row.total{
+    border-top:1px solid rgba(251,247,240,0.18); margin-top:8px; padding-top:14px;
+    font-size:18px; font-weight:700; color:var(--cream);
+  }
+  .summary-row.total .mono{font-size:22px; color:var(--red);}
+
+  .pay-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    background:var(--red); color:var(--cream); font-weight:700; font-size:15.5px;
+    padding:16px; border-radius:100px; border:none; cursor:pointer; margin-top:20px;
+    transition:background .18s;
+  }
+  .pay-btn:hover{background:var(--red-dark);}
+  .pay-btn:disabled{opacity:0.5; cursor:not-allowed;}
+
+  .note{font-size:12px; color:var(--grey-mid); text-align:center; margin-top:14px; line-height:1.5;}
+  .error{display:none; background:#FBE3E1; color:var(--red-dark); font-size:13px; padding:12px 16px; border-radius:12px; margin-top:16px;}
+  .error.show{display:block;}
+
+  .promo{
+    background:var(--charcoal); border-radius:16px; padding:18px 20px; margin-bottom:24px;
+  }
+  .promo-tiers{display:flex; gap:6px;}
+  .promo-tier{
+    flex:1; text-align:center; font-family:'IBM Plex Mono'; padding:10px 6px; border-radius:12px;
+    background:transparent; color:rgba(251,247,240,0.55); transition:background .15s, color .15s;
+  }
+  .promo-tier .q{display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px;}
+  .promo-tier .p{display:block; font-size:14px; font-weight:600;}
+  .promo-tier.active{background:var(--red); color:var(--cream);}
+  .promo-next{font-size:12px; color:rgba(251,247,240,0.6); margin-top:12px; text-align:center;}
+  .promo-next b{color:var(--cream);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#FBF7F0" stroke-width="1.6"/><path d="M12 3v9l6 3" stroke="#FBF7F0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    PIZZA LAB
+  </div>
+
+  <h1>Armá tu pedido</h1>
+  <p class="sub">Elegí cantidades por sabor. Entrega los miércoles de 10 a 19h por CABA.</p>
+
+  <div class="promo">
+    <div class="promo-tiers" id="promo-tiers"></div>
+    <div class="promo-next" id="promo-next"></div>
+  </div>
+
+  <div id="items"></div>
+
+  <div class="summary">
+    <div class="summary-row"><span>Pizzas</span><span id="qty-total" class="mono">0</span></div>
+    <div class="summary-row total"><span>Total</span><span id="price-total" class="mono">$0</span></div>
+  </div>
+
+  <button class="pay-btn" id="pay-btn" disabled>Pagar con Mercado Pago →</button>
+  <div class="error" id="error-box"></div>
+  <p class="note">Pago 100% seguro procesado por Mercado Pago. El envío corre por cuenta del cliente.</p>
+</div>
+
+<script>
+  // ---- CONFIGURACIÓN ----
+  // Precio por pizza según cantidad total del pedido (descuento por volumen).
+  // El precio se aplica a TODAS las pizzas del pedido según el escalón alcanzado,
+  // sin importar la combinación de sabores.
+  const PRICE_TIERS = [
+    { min: 1, price: 18000, label: "1 pizza" },
+    { min: 2, price: 16000, label: "2+ pizzas" },
+    { min: 4, price: 15000, label: "4+ pizzas" },
+    { min: 8, price: 14000, label: "8+ pizzas" },
+  ];
+
+  function getTier(totalQty){
+    let current = PRICE_TIERS[0];
+    for(const tier of PRICE_TIERS){
+      if(totalQty >= tier.min) current = tier;
+    }
+    return current;
+  }
+
+  function getNextTier(totalQty){
+    return PRICE_TIERS.find(t => t.min > totalQty) || null;
+  }
+
+  // URL de tu backend ya desplegado (ver /backend/README.md). Reemplazar antes de publicar.
+  const BACKEND_URL = "https://pizza-lab-backend.onrender.com/create-preference";
+
+  const FLAVORS = [
+    { id: "muzzarella", name: "Muzzarella", desc: "Salsa de tomate, muzzarella y orégano." },
+    { id: "portobello", name: "Portobello", desc: "Muzzarella y hongos portobello grillados." },
+    { id: "cebolla", name: "Cebolla", desc: "Muzzarella y cebolla caramelizada." },
+    { id: "pepperoni", name: "Pepperoni", desc: "Doble porción de pepperoni." },
+  ];
+
+  const state = {};
+  FLAVORS.forEach(f => state[f.id] = 0);
+
+  const itemsEl = document.getElementById('items');
+  const qtyTotalEl = document.getElementById('qty-total');
+  const priceTotalEl = document.getElementById('price-total');
+  const payBtn = document.getElementById('pay-btn');
+  const errorBox = document.getElementById('error-box');
+
+  function fmt(n){ return "$" + n.toLocaleString('es-AR'); }
+
+  function renderPromo(totalQty){
+    const currentTier = getTier(totalQty);
+    const tiersEl = document.getElementById('promo-tiers');
+    const nextEl = document.getElementById('promo-next');
+
+    tiersEl.innerHTML = PRICE_TIERS.map(t => `
+      <div class="promo-tier ${t === currentTier && totalQty > 0 ? 'active' : ''}">
+        <span class="q">${t.label}</span>
+        <span class="p">${fmt(t.price)}</span>
+      </div>
+    `).join('');
+
+    const next = getNextTier(totalQty);
+    if(totalQty > 0 && next){
+      const faltan = next.min - totalQty;
+      nextEl.innerHTML = `Sumá ${faltan} pizza${faltan > 1 ? 's' : ''} más y pagás <b>${fmt(next.price)}</b> c/u`;
+    } else if(totalQty === 0){
+      nextEl.innerHTML = `Elegí tus pizzas — cuantas más sumes, menos pagás por unidad`;
+    } else {
+      nextEl.textContent = "";
+    }
+  }
+
+  function render(){
+    const totalQty = Object.values(state).reduce((a,b) => a+b, 0);
+    const tier = getTier(totalQty);
+
+    itemsEl.innerHTML = FLAVORS.map(f => `
+      <div class="item">
+        <div class="item-info">
+          <h3>${f.name}</h3>
+          <p>${f.desc}</p>
+        </div>
+        <div class="item-price">${fmt(tier.price)}</div>
+        <div class="stepper">
+          <button onclick="changeQty('${f.id}', -1)" aria-label="Restar">–</button>
+          <span>${state[f.id]}</span>
+          <button onclick="changeQty('${f.id}', 1)" aria-label="Sumar">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    const totalPrice = totalQty * tier.price;
+    qtyTotalEl.textContent = totalQty;
+    priceTotalEl.textContent = fmt(totalPrice);
+    payBtn.disabled = totalQty === 0;
+    renderPromo(totalQty);
+  }
+
+  window.changeQty = function(id, delta){
+    state[id] = Math.max(0, state[id] + delta);
+    render();
+  };
+
+  payBtn.addEventListener('click', async () => {
+    errorBox.classList.remove('show');
+    const totalQty = Object.values(state).reduce((a,b) => a+b, 0);
+    const tier = getTier(totalQty);
+    const items = FLAVORS
+      .filter(f => state[f.id] > 0)
+      .map(f => ({
+        title: "Pizza Lab — " + f.name,
+        quantity: state[f.id],
+        unit_price: tier.price
+      }));
+
+    if(items.length === 0) return;
+
+    payBtn.disabled = true;
+    payBtn.textContent = "Redirigiendo a Mercado Pago…";
+
+    try{
+      const res = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items })
+      });
+      if(!res.ok) throw new Error("Error del servidor");
+      const data = await res.json();
+      if(data.init_point){
+        window.location.href = data.init_point;
+      } else {
+        throw new Error("No se recibió el link de pago");
+      }
+    } catch(err){
+      errorBox.textContent = "No pudimos conectar con Mercado Pago. Intentá de nuevo en unos segundos.";
+      errorBox.classList.add('show');
+      payBtn.disabled = false;
+      payBtn.textContent = "Pagar con Mercado Pago →";
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>
