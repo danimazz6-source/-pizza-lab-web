@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fina Protein Lab — PIZZA / 101 · Pizza keto alta en proteína</title>
+<title>Fina Protein Lab — PIZZA / 001 · Pizza keto alta en proteína</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
     --charcoal-2:#3B332D;
     --cream:#F5EEE1;
     --cream-2:#EFE6D3;
-    --red:#C1502E;
-    --red-dark:#9C3E24;
+    --red:#C6402A;
+    --red-dark:#9E3322;
     --grey-mid:#8C8177;
     --line:#E4D8C3;
   }
@@ -136,23 +136,26 @@
 
   /* NUTRITION STATS */
   .nutri{background:var(--charcoal); color:var(--cream);}
-  .nutri-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:2px; background:rgba(245,238,225,0.1); border-radius:24px; overflow:hidden;}
-  .nutri-cell{background:var(--charcoal); padding:32px 26px; position:relative;}
-  .nutri-cell.hero{grid-column:span 3; background:var(--red); padding:38px 30px;}
-  .nutri-cell.low{grid-column:span 3; background:rgba(245,238,225,0.06); border:1.5px solid rgba(193,80,46,0.55);}
-  .nutri-cell.small{grid-column:span 2;}
+  .nutri-hero-row{display:grid; grid-template-columns:1fr 1fr; gap:2px; background:rgba(245,238,225,0.1); border-radius:20px 20px 0 0; overflow:hidden;}
+  .nutri-mini-row{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(245,238,225,0.1); border-radius:0 0 20px 20px; overflow:hidden; margin-top:2px;}
+  .nutri-cell{background:var(--charcoal); padding:30px 24px; position:relative;}
+  .nutri-cell.hero{background:var(--red); padding:34px 26px;}
+  .nutri-cell.low{background:rgba(245,238,225,0.06); border:1.5px solid rgba(193,80,46,0.55);}
+  .nutri-cell.small{padding:22px 16px; text-align:center;}
   .nutri-cell .tag{
     display:inline-block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
     padding:4px 10px; border-radius:100px; margin-bottom:14px;
   }
   .nutri-cell.hero .tag{background:rgba(245,238,225,0.22); color:var(--cream);}
   .nutri-cell.low .tag{background:rgba(193,80,46,0.16); color:var(--red);}
-  .nutri-cell .n{font-family:'IBM Plex Mono'; font-size:34px; font-weight:700; line-height:1;}
-  .nutri-cell.hero .n{font-size:52px;}
-  .nutri-cell.low .n{font-size:40px; color:var(--cream);}
+  .nutri-cell .n{font-family:'IBM Plex Mono'; font-size:32px; font-weight:700; line-height:1;}
+  .nutri-cell.hero .n{font-size:46px;}
+  .nutri-cell.low .n{font-size:38px; color:var(--cream);}
+  .nutri-cell.small .n{font-size:22px;}
   .nutri-cell .l{font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:rgba(245,238,225,0.55); margin-top:10px;}
   .nutri-cell.hero .l{color:rgba(245,238,225,0.88); font-size:13px;}
   .nutri-cell.low .l{color:rgba(245,238,225,0.7);}
+  .nutri-cell.small .l{font-size:10.5px; margin-top:6px;}
   .nutri-foot{font-size:12px; color:rgba(245,238,225,0.45); margin-top:22px; font-family:'IBM Plex Mono';}
 
   /* INGREDIENTES */
@@ -165,16 +168,18 @@
   .ing-icon svg{width:22px; height:22px;}
   .ing-item h4{font-size:15.5px; font-weight:700;}
   .ing-item p{font-size:13px; color:var(--grey-mid); margin-top:2px;}
+  .ing-dark{background:var(--charcoal); color:var(--cream);}
   .ing-chips{display:flex; flex-wrap:wrap; gap:10px;}
   .ing-chip{
-    background:var(--cream-2); border-radius:100px; padding:10px 16px;
-    font-size:13.5px; font-weight:600;
+    background:rgba(245,238,225,0.09); border:1px solid rgba(245,238,225,0.14);
+    border-radius:100px; padding:10px 16px;
+    font-size:13.5px; font-weight:600; color:var(--cream);
   }
   .allergen-note{
     display:flex; align-items:center; gap:8px;
-    color:var(--grey-mid); margin-top:20px; font-size:12px; font-weight:500;
+    color:rgba(245,238,225,0.5); margin-top:20px; font-size:12px; font-weight:500;
   }
-  .allergen-note svg{flex-shrink:0; opacity:0.6;}
+  .allergen-note svg{flex-shrink:0; opacity:0.7;}
 
   /* SABORES */
   .flavor-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
@@ -251,8 +256,13 @@
   .faq-a p{padding-bottom:22px; font-size:14px; color:var(--grey-mid); line-height:1.6; max-width:600px;}
 
   /* CTA FINAL */
-  .cta-final{background:var(--charcoal); color:var(--cream); border-radius:32px; text-align:center; padding:52px 40px; position:relative; overflow:hidden;}
-  .cta-final .stamp{position:absolute; top:-30px; left:-30px; width:150px; height:150px; opacity:0.9;}
+  .cta-final{
+    background:
+      linear-gradient(180deg, rgba(46,38,32,0.88), rgba(46,38,32,0.94)),
+      url('pizza-foto-cta.jpg') center 25% / cover no-repeat, var(--charcoal);
+    color:var(--cream); border-radius:32px; text-align:center; padding:64px 40px; position:relative;
+  }
+  .cta-final .stamp{position:absolute; top:-16px; left:-16px; width:130px; height:130px; opacity:0.95;}
   .cta-final h2{font-size:clamp(30px,4vw,44px); font-weight:800; margin-bottom:14px; letter-spacing:-0.02em;}
   .cta-final p{color:rgba(245,238,225,0.62); margin-bottom:30px; font-size:15.5px;}
 
@@ -267,10 +277,7 @@
 
   @media (max-width: 900px){
     .hero-grid{grid-template-columns:1fr;}
-    .hero-photo{order:-1; max-width:340px; margin:0 auto;}
-    .nutri-grid{grid-template-columns:repeat(2,1fr);}
-    .nutri-cell.hero, .nutri-cell.low{grid-column:span 2;}
-    .nutri-cell.small{grid-column:span 1;}
+    .hero-photo{max-width:280px; margin:0 auto;}
     .ing-grid{grid-template-columns:1fr;}
     .flavor-grid{grid-template-columns:repeat(2,1fr);}
     .compare-grid{grid-template-columns:1fr; gap:36px;}
@@ -288,13 +295,13 @@
   .marquee-track{
     display:inline-flex; align-items:center;
     animation:marquee 22s linear infinite;
-    padding:9px 0;
+    padding:6px 0;
   }
   .marquee-track span{
-    font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
-    padding:0 28px; display:inline-flex; align-items:center; gap:10px;
+    font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    padding:0 22px; display:inline-flex; align-items:center; gap:8px; opacity:0.92;
   }
-  .marquee-track span::after{content:'✦'; opacity:0.6; margin-left:28px;}
+  .marquee-track span::after{content:'✦'; opacity:0.5; margin-left:22px; font-size:9px;}
   @keyframes marquee{
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
@@ -306,15 +313,17 @@
   /* COUNTDOWN */
   .countdown-bar{
     background:var(--charcoal); color:var(--cream);
-    text-align:center; padding:11px 20px;
-    font-size:12.5px; font-weight:600;
+    text-align:center; padding:13px 20px;
+    font-size:14px; font-weight:600;
+    border-bottom:1px solid rgba(245,238,225,0.1);
   }
   .countdown-bar b{
     font-family:'IBM Plex Mono'; font-weight:700; color:var(--red);
-    letter-spacing:0.02em;
+    letter-spacing:0.02em; font-size:14.5px;
   }
   @media (max-width:600px){
-    .countdown-bar{font-size:11.5px; padding:10px 14px;}
+    .countdown-bar{font-size:12.5px; padding:11px 14px;}
+    .countdown-bar b{font-size:13px;}
   }
 </style>
 </head>
@@ -333,15 +342,14 @@
   </div>
 </div>
 
-<div class="countdown-bar" id="countdown-bar">Pedí antes de <b id="countdown-time">—</b> y recibilo el miércoles <b id="delivery-date">—</b></div>
-
 <header>
+  <div class="countdown-bar" id="countdown-bar">Pedí antes de <b id="countdown-time">—</b> y recibilo el miércoles <b id="delivery-date">—</b></div>
   <div class="nav wrap">
     <div class="logo">
       <div class="mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F5EEE1"/><circle cx="12" cy="10" r="1.3" fill="#C1502E"/><circle cx="14.5" cy="14.5" r="1.3" fill="#C1502E"/><circle cx="9.5" cy="15" r="1.3" fill="#C1502E"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F5EEE1"/><circle cx="12" cy="10" r="1.3" fill="#C6402A"/><circle cx="14.5" cy="14.5" r="1.3" fill="#C6402A"/><circle cx="9.5" cy="15" r="1.3" fill="#C6402A"/></svg>
       </div>
-      <div class="word">Fina Protein Lab<small>PIZZA / 101</small></div>
+      <div class="word">Fina Protein Lab<small>PIZZA / 001</small></div>
     </div>
     <nav class="navlinks">
       <a href="#nutricion">Macros</a>
@@ -357,7 +365,7 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow"><span class="dot"></span>PIZZA / 101 · Keto · Alta en proteína</div>
+        <div class="eyebrow"><span class="dot"></span>PIZZA / 001 · Keto · Alta en proteína</div>
         <h1>Comé pizza.<br><span class="accent">Sin culpa.</span></h1>
         <p class="lead">Pizza formulada para rendir en tu plan: mucha proteína, pocos carbs e ingredientes que todos conocemos. Aproximadamente 450 calorías por pizza. La pizza que no tenés que justificar.</p>
         <div class="hero-ctas">
@@ -374,7 +382,7 @@
 
       <div class="hero-photo">
         <div class="photo-card">
-          <img src="pizza-foto-hero.jpg" alt="Fina Protein Lab — PIZZA / 101 recién horneada">
+          <img src="pizza-foto-hero.jpg" alt="Fina Protein Lab — PIZZA / 001 recién horneada">
           <div class="float-tag">
             <div>
               <div class="n">62g</div>
@@ -383,14 +391,14 @@
           </div>
         </div>
         <svg class="stamp" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="92" fill="#C1502E"/>
+          <circle cx="100" cy="100" r="92" fill="#C6402A"/>
           <path id="circlePath" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" fill="none"/>
           <text font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#F5EEE1" letter-spacing="2.5">
             <textPath href="#circlePath" startOffset="0%">SIN CULPA · SIN CULPA · SIN CULPA · </textPath>
           </text>
           <circle cx="100" cy="100" r="34" fill="#F5EEE1"/>
           <g transform="translate(100,100) scale(1.7) translate(-12,-12)">
-            <path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#C1502E"/>
+            <path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#C6402A"/>
             <circle cx="12" cy="10" r="1.3" fill="#F5EEE1"/>
             <circle cx="14.5" cy="14.5" r="1.3" fill="#F5EEE1"/>
             <circle cx="9.5" cy="15" r="1.3" fill="#F5EEE1"/>
@@ -408,7 +416,7 @@
         <h2>Los números, bien a la vista.</h2>
         <p>Por pizza (270 g). Sin sorpresas, sin letra chica.</p>
       </div>
-      <div class="nutri-grid">
+      <div class="nutri-hero-row">
         <div class="nutri-cell hero">
           <span class="tag">★ Muy alto</span>
           <div class="n">62g</div>
@@ -419,6 +427,8 @@
           <div class="n">3,3g</div>
           <div class="l">Carbohidratos</div>
         </div>
+      </div>
+      <div class="nutri-mini-row">
         <div class="nutri-cell small"><div class="n">453</div><div class="l">Kcal</div></div>
         <div class="nutri-cell small"><div class="n">0,7g</div><div class="l">Azúcares totales</div></div>
         <div class="nutri-cell small"><div class="n">21g</div><div class="l">Grasas totales</div></div>
@@ -428,16 +438,16 @@
   </section>
 
   <!-- INGREDIENTES -->
-  <section id="ingredientes">
+  <section id="ingredientes" class="ing-dark">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head on-dark">
         <div class="kicker"><span class="dot"></span>Qué lleva adentro</div>
         <h2>Ingredientes reales.</h2>
         <p>Sin harinas de trigo. La masa se construye a base de proteína real.</p>
       </div>
       <div class="ing-grid">
         <div class="ing-photo">
-          <img src="pizza-foto-ingredientes.jpg" alt="Fina Protein Lab — PIZZA / 101">
+          <img src="pizza-foto-ingredientes.jpg" alt="Fina Protein Lab — PIZZA / 001">
         </div>
         <div>
           <div class="ing-chips">
@@ -452,7 +462,7 @@
             <span class="ing-chip">Pimienta</span>
           </div>
           <div class="allergen-note">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3 L22 20 H2 Z" stroke="#8C8177" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9.5v5" stroke="#8C8177" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="17" r="0.9" fill="#8C8177"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3 L22 20 H2 Z" stroke="#B0A797" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9.5v5" stroke="#B0A797" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="17" r="0.9" fill="#B0A797"/></svg>
             Contiene huevo y derivados de leche
           </div>
         </div>
@@ -531,7 +541,7 @@
     <div class="wrap">
       <div class="cta-final">
         <svg class="stamp" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="92" fill="#C1502E"/>
+          <circle cx="100" cy="100" r="92" fill="#C6402A"/>
           <path id="circlePath2" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" fill="none"/>
           <text font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="#F5EEE1" letter-spacing="2.5">
             <textPath href="#circlePath2" startOffset="0%">SIN CULPA · SIN CULPA · SIN CULPA · </textPath>
@@ -551,9 +561,9 @@
     <div class="foot-grid">
       <div class="logo">
         <div class="mark">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F5EEE1"/><circle cx="12" cy="10" r="1.3" fill="#C1502E"/><circle cx="14.5" cy="14.5" r="1.3" fill="#C1502E"/><circle cx="9.5" cy="15" r="1.3" fill="#C1502E"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F5EEE1"/><circle cx="12" cy="10" r="1.3" fill="#C6402A"/><circle cx="14.5" cy="14.5" r="1.3" fill="#C6402A"/><circle cx="9.5" cy="15" r="1.3" fill="#C6402A"/></svg>
         </div>
-        <div class="word">Fina Protein Lab<small>PIZZA / 101</small></div>
+        <div class="word">Fina Protein Lab<small>PIZZA / 001</small></div>
       </div>
       <div class="foot-links">
         <a href="#preguntas">Preguntas</a>
@@ -561,7 +571,7 @@
         <a href="https://wa.me/5491173609839" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
-    <div class="foot-fine">© 2026 Fina Protein Lab — Buenos Aires, Argentina. PIZZA / 101, alta en proteína, baja en carbohidratos.</div>
+    <div class="foot-fine">© 2026 Fina Protein Lab — Buenos Aires, Argentina. PIZZA / 001, alta en proteína, baja en carbohidratos.</div>
   </div>
 </footer>
 
