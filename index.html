@@ -78,6 +78,9 @@
   .navlinks a{opacity:0.62; transition:opacity .2s;}
   .navlinks a:hover{opacity:1;}
   .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .nav-cta{display:flex; align-items:center; gap:12px;}
+  .nav-mascot{width:40px; height:auto; object-fit:contain; opacity:0.85;}
+  @media (max-width:480px){ .nav-mascot{display:none;} }
   .btn{
     display:inline-flex; align-items:center; gap:8px;
     background:var(--red); color:var(--paper);
@@ -229,8 +232,8 @@
   .foot-links{display:flex; gap:24px; font-size:13px; font-weight:600; color:var(--ink-dim);}
   .foot-links a:hover{color:var(--ink);}
   .foot-fine{font-size:11.5px; color:var(--ink-dim2); margin-top:20px; font-family:'IBM Plex Mono'; max-width:520px;}
-  .foot-mascot{position:absolute; right:26px; bottom:10px; width:54px; height:auto; object-fit:contain; opacity:0.5; pointer-events:none;}
-  @media (max-width:600px){ .foot-mascot{width:40px; right:16px; bottom:8px;} }
+  .foot-mascot{position:absolute; right:26px; bottom:8px; width:80px; height:auto; object-fit:contain; opacity:0.55; pointer-events:none;}
+  @media (max-width:600px){ .foot-mascot{width:58px; right:16px; bottom:6px;} }
 
   @media (max-width: 900px){
     .hero-grid{grid-template-columns:1fr;}
@@ -319,7 +322,10 @@
       <a href="#ingredientes">Ingredientes</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
-    <a href="carrito.html" class="btn">Pedir ahora</a>
+    <div class="nav-cta">
+      <img src="fina-mascot.png" alt="" class="nav-mascot">
+      <a href="carrito.html" class="btn">Pedir ahora</a>
+    </div>
   </div>
 </header>
 
