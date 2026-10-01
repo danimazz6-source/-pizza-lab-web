@@ -133,6 +133,12 @@
   .delivery-form{margin-top:24px; background:var(--cream-2); border-radius:20px; padding:22px 20px;}
   .delivery-form h2{font-size:15.5px; font-weight:700; margin-bottom:4px;}
   .delivery-form .sub2{font-size:12.5px; color:var(--grey-mid); margin-bottom:18px;}
+  .zone-note{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:12.5px; font-weight:600; color:var(--red);
+    margin:-6px 0 18px;
+  }
+  .zone-note svg{width:16px; height:16px; flex-shrink:0;}
   .field{margin-bottom:14px;}
   .field:last-child{margin-bottom:0;}
   .field label{display:block; font-size:12.5px; font-weight:600; margin-bottom:6px;}
@@ -204,6 +210,10 @@
   <div class="delivery-form">
     <h2>Datos de entrega</h2>
     <div class="sub2">Los necesitamos para coordinar tu pedido del miércoles. Por ahora repartimos solo dentro de CABA.</div>
+    <a href="https://wa.me/5491173609839?text=Hola!%20Soy%20de%20fuera%20de%20CABA%20y%20quería%20consultar%20por%20la%20entrega%20de%20mi%20pedido." target="_blank" rel="noopener" class="zone-note">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.4-.6-2.3-1.1-3.2-2.6-.2-.3 0-.5.1-.6.2-.2.4-.4.5-.6.1-.2.1-.4 0-.5-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.2-.8.8-.8 2s.9 2.3 1 2.4c.1.2 1.8 2.8 4.4 3.8 2.1.8 2.1.5 2.4.5.3 0 1.6-.6 1.8-1.3.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l4.9-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+      ¿Estás fuera de CABA? Escribinos por WhatsApp y coordinamos la entrega
+    </a>
 
     <div class="field" id="field-nombre">
       <label for="nombre">Nombre y apellido</label>
