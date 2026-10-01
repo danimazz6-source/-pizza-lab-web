@@ -224,11 +224,13 @@
   }
 
   /* FOOTER */
-  footer{padding:40px 28px 32px; background:var(--paper); border-top:1px solid var(--line);}
+  footer{padding:40px 28px 32px; background:var(--paper); border-top:1px solid var(--line); position:relative; overflow:hidden;}
   .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
   .foot-links{display:flex; gap:24px; font-size:13px; font-weight:600; color:var(--ink-dim);}
   .foot-links a:hover{color:var(--ink);}
-  .foot-fine{font-size:11.5px; color:var(--ink-dim2); margin-top:20px; font-family:'IBM Plex Mono';}
+  .foot-fine{font-size:11.5px; color:var(--ink-dim2); margin-top:20px; font-family:'IBM Plex Mono'; max-width:520px;}
+  .foot-mascot{position:absolute; right:26px; bottom:10px; width:54px; height:auto; object-fit:contain; opacity:0.5; pointer-events:none;}
+  @media (max-width:600px){ .foot-mascot{width:40px; right:16px; bottom:8px;} }
 
   @media (max-width: 900px){
     .hero-grid{grid-template-columns:1fr;}
@@ -364,7 +366,7 @@
       </div>
       <div class="nutri-cards">
         <div class="nutri-card feature">
-          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7a2 2 0 1 1 3-1.7M18 7a2 2 0 1 0-3-1.7M6 17a2 2 0 1 0 3 1.7M18 17a2 2 0 1 1-3 1.7M8 6.6 16 6.6M8 17.4 16 17.4M7.3 7.8 16.7 16.2M16.7 7.8 7.3 16.2"/></svg></div>
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8v8M4 10v4M17.5 8v8M20 10v4M8.5 12h7"/></svg></div>
           <div class="n">62g</div>
           <div class="l">Proteínas</div>
         </div>
@@ -379,12 +381,12 @@
           <div class="l">Kcal</div>
         </div>
         <div class="nutri-card">
-          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8C9.5 6.3 6.5 10 6.5 13.5a5.5 5.5 0 0 0 11 0C17.5 10 14.5 6.3 12 2.8z"/></svg></div>
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 18.5 7.5V16.5L12 20.5 5.5 16.5V7.5Z"/><path d="M5.5 7.5 12 11.3 18.5 7.5M12 11.3V20.5"/></svg></div>
           <div class="n">0,7g</div>
           <div class="l">Azúcares</div>
         </div>
         <div class="nutri-card">
-          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.3"/><circle cx="12" cy="12" r="2.3"/></svg></div>
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8C9.5 6.3 6.5 10 6.5 13.5a5.5 5.5 0 0 0 11 0C17.5 10 14.5 6.3 12 2.8z"/></svg></div>
           <div class="n">21g</div>
           <div class="l">Grasas</div>
         </div>
@@ -532,6 +534,7 @@
     </div>
     <div class="foot-fine">© 2026 Fina Protein Lab — Buenos Aires, Argentina. Pizza alta en proteína, baja en carbohidratos.</div>
   </div>
+  <img src="fina-mascot.png" alt="" class="foot-mascot">
 </footer>
 
 <script>
