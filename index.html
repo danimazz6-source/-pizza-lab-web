@@ -289,9 +289,27 @@
     font-family:'IBM Plex Mono'; font-weight:700; color:var(--red);
     letter-spacing:0.02em; font-size:14.5px;
   }
+  .cd-chips{display:inline-flex; gap:6px; margin:0 7px; vertical-align:middle;}
+  .cd-chip{
+    background:linear-gradient(180deg,#8E3433,#6E2423); color:var(--paper);
+    font-family:'IBM Plex Mono'; font-weight:700; font-size:14px;
+    padding:5px 9px 4px; border-radius:8px;
+    display:inline-flex; flex-direction:column; align-items:center; line-height:1.05;
+    box-shadow:0 3px 8px -2px rgba(130,45,44,0.4);
+    min-width:28px;
+  }
+  .cd-chip span{
+    font-size:7px; font-weight:700; color:rgba(246,241,230,0.6);
+    text-transform:uppercase; letter-spacing:0.05em; margin-top:1px;
+  }
+  .countdown-bar .cd-chip b{color:var(--paper); font-size:14px;}
   @media (max-width:600px){
     .countdown-bar{font-size:12.5px; padding:9px 14px;}
     .countdown-bar b{font-size:13px;}
+    .cd-chips{gap:4px; margin:0 5px;}
+    .cd-chip{font-size:12.5px; padding:4px 7px 3px; min-width:24px;}
+    .cd-chip span{font-size:6px;}
+    .countdown-bar .cd-chip b{font-size:12.5px;}
   }
 </style>
 </head>
@@ -311,7 +329,15 @@
 </div>
 
 <header>
-  <div class="countdown-bar" id="countdown-bar">Pedí antes de <b id="countdown-time">—</b> y recibilo el miércoles <b id="delivery-date">—</b></div>
+  <div class="countdown-bar" id="countdown-bar">Pedí antes de
+    <span class="cd-chips">
+      <span class="cd-chip" id="cd-days-wrap"><b id="cd-days">—</b><span>Días</span></span>
+      <span class="cd-chip"><b id="cd-hours">—</b><span>Hs</span></span>
+      <span class="cd-chip"><b id="cd-mins">—</b><span>Min</span></span>
+      <span class="cd-chip"><b id="cd-secs">—</b><span>Seg</span></span>
+    </span>
+    y recibilo el miércoles <b id="delivery-date">—</b>
+  </div>
   <div class="nav wrap">
     <div class="logo">
       <div class="mark">
@@ -581,9 +607,13 @@
   }
 
   function updateCountdown(){
-    const el = document.getElementById('countdown-time');
+    const daysEl = document.getElementById('cd-days');
+    const daysWrapEl = document.getElementById('cd-days-wrap');
+    const hoursEl = document.getElementById('cd-hours');
+    const minsEl = document.getElementById('cd-mins');
+    const secsEl = document.getElementById('cd-secs');
     const dateEl = document.getElementById('delivery-date');
-    if(!el) return;
+    if(!daysEl) return;
     const now = new Date();
     const cutoff = getNextCutoff();
     let diff = Math.max(0, cutoff - now);
@@ -593,13 +623,11 @@
     const mins = Math.floor((diff % 3600000) / 60000);
     const secs = Math.floor((diff % 60000) / 1000);
 
-    const parts = [];
-    if(days > 0) parts.push(days + 'd');
-    parts.push(String(hours).padStart(2,'0') + 'h');
-    parts.push(String(mins).padStart(2,'0') + 'm');
-    parts.push(String(secs).padStart(2,'0') + 's');
-
-    el.textContent = parts.join(' ');
+    if(daysWrapEl) daysWrapEl.style.display = days > 0 ? 'inline-flex' : 'none';
+    daysEl.textContent = days;
+    hoursEl.textContent = String(hours).padStart(2,'0');
+    minsEl.textContent = String(mins).padStart(2,'0');
+    secsEl.textContent = String(secs).padStart(2,'0');
 
     // El miércoles de entrega es siempre 3 días después del corte (domingo → miércoles).
     if(dateEl){
