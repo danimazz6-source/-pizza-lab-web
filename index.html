@@ -351,14 +351,17 @@
 </div>
 
 <header>
-  <div class="countdown-bar" id="countdown-bar">Pedí antes de
-    <span class="cd-chips">
-      <span class="cd-chip" id="cd-days-wrap"><b id="cd-days">—</b><span>Días</span></span>
-      <span class="cd-chip"><b id="cd-hours">—</b><span>Hs</span></span>
-      <span class="cd-chip"><b id="cd-mins">—</b><span>Min</span></span>
-      <span class="cd-chip"><b id="cd-secs">—</b><span>Seg</span></span>
+  <div class="countdown-bar" id="countdown-bar">
+    <span id="cd-far">Pedí antes del domingo <b id="cd-far-date">—</b> 23:59hs y recibilo el miércoles <b id="cd-far-delivery">—</b></span>
+    <span id="cd-near" style="display:none;">Pedí antes de
+      <span class="cd-chips">
+        <span class="cd-chip" id="cd-days-wrap"><b id="cd-days">—</b><span>Días</span></span>
+        <span class="cd-chip"><b id="cd-hours">—</b><span>Hs</span></span>
+        <span class="cd-chip"><b id="cd-mins">—</b><span>Min</span></span>
+        <span class="cd-chip"><b id="cd-secs">—</b><span>Seg</span></span>
+      </span>
+      y recibilo el miércoles <b id="delivery-date">—</b>
     </span>
-    y recibilo el miércoles <b id="delivery-date">—</b>
   </div>
   <div class="nav wrap">
     <div class="logo">
@@ -641,17 +644,46 @@
     return cutoff;
   }
 
+  function formatDM(d){
+    const dd = String(d.getDate()).padStart(2,'0');
+    const mm = String(d.getMonth() + 1).padStart(2,'0');
+    return dd + '/' + mm;
+  }
+
   function updateCountdown(){
+    const farEl = document.getElementById('cd-far');
+    const nearEl = document.getElementById('cd-near');
+    if(!farEl || !nearEl) return;
+
+    const now = new Date();
+    const cutoff = getNextCutoff();
+    let diff = Math.max(0, cutoff - now);
+    const delivery = new Date(cutoff);
+    delivery.setDate(delivery.getDate() + 3);
+
+    const URGENT_MS = 24 * 3600 * 1000;
+
+    if(diff > URGENT_MS){
+      // Más de 24hs para el corte: texto simple, sin reloj en vivo.
+      farEl.style.display = '';
+      nearEl.style.display = 'none';
+      const farDateEl = document.getElementById('cd-far-date');
+      const farDeliveryEl = document.getElementById('cd-far-delivery');
+      if(farDateEl) farDateEl.textContent = formatDM(cutoff);
+      if(farDeliveryEl) farDeliveryEl.textContent = formatDM(delivery);
+      return;
+    }
+
+    // Últimas 24hs: contador en vivo con chips.
+    farEl.style.display = 'none';
+    nearEl.style.display = '';
+
     const daysEl = document.getElementById('cd-days');
     const daysWrapEl = document.getElementById('cd-days-wrap');
     const hoursEl = document.getElementById('cd-hours');
     const minsEl = document.getElementById('cd-mins');
     const secsEl = document.getElementById('cd-secs');
     const dateEl = document.getElementById('delivery-date');
-    if(!daysEl) return;
-    const now = new Date();
-    const cutoff = getNextCutoff();
-    let diff = Math.max(0, cutoff - now);
 
     const days = Math.floor(diff / 86400000);
     const hours = Math.floor((diff % 86400000) / 3600000);
@@ -659,19 +691,11 @@
     const secs = Math.floor((diff % 60000) / 1000);
 
     if(daysWrapEl) daysWrapEl.style.display = days > 0 ? 'inline-flex' : 'none';
-    daysEl.textContent = days;
-    hoursEl.textContent = String(hours).padStart(2,'0');
-    minsEl.textContent = String(mins).padStart(2,'0');
-    secsEl.textContent = String(secs).padStart(2,'0');
-
-    // El miércoles de entrega es siempre 3 días después del corte (domingo → miércoles).
-    if(dateEl){
-      const delivery = new Date(cutoff);
-      delivery.setDate(delivery.getDate() + 3);
-      const dd = String(delivery.getDate()).padStart(2,'0');
-      const mm = String(delivery.getMonth() + 1).padStart(2,'0');
-      dateEl.textContent = dd + '/' + mm;
-    }
+    if(daysEl) daysEl.textContent = days;
+    if(hoursEl) hoursEl.textContent = String(hours).padStart(2,'0');
+    if(minsEl) minsEl.textContent = String(mins).padStart(2,'0');
+    if(secsEl) secsEl.textContent = String(secs).padStart(2,'0');
+    if(dateEl) dateEl.textContent = formatDM(delivery);
   }
 
   updateCountdown();
