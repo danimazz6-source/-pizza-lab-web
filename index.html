@@ -30,15 +30,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F5F1E7;
-    --paper-2:#EAE2CF;
-    --ink:#272320;
-    --ink-dim:rgba(39,35,32,0.62);
-    --ink-dim2:rgba(39,35,32,0.42);
-    --red:#C6402A;
-    --red-dark:#9E3322;
-    --olive:#55624A;
-    --olive-dark:#404A38;
+    --paper:#EDF0E4;
+    --paper-2:#DCE2CB;
+    --ink:#272F20;
+    --ink-dim:rgba(39,47,32,0.62);
+    --ink-dim2:rgba(39,47,32,0.42);
+    --red:#D1603F;
+    --red-dark:#AE4B30;
+    --olive:#5C6B4A;
+    --olive-dark:#48553A;
     --line:rgba(39,35,32,0.15);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -91,29 +91,31 @@
   .btn-outline:hover{background:rgba(43,36,31,0.06); transform:translateY(-1px);}
 
   /* HERO — split, foto natural */
-  .hero{padding:56px 28px 72px;}
+  .hero{padding:56px 28px 72px; background:var(--olive);}
   .hero-grid{display:grid; grid-template-columns:1fr 0.92fr; gap:56px; align-items:center;}
   .eyebrow{
     display:inline-flex; align-items:center; gap:10px;
     font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em;
-    color:var(--ink-dim); margin-bottom:24px;
+    color:rgba(237,240,228,0.72); margin-bottom:24px;
   }
-  .eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--red);}
+  .eyebrow .dot{width:5px; height:5px; border-radius:50%; background:#F0A387;}
   .hero h1{
     font-size:clamp(38px, 5vw, 60px);
     line-height:1.05; letter-spacing:-0.02em; font-weight:800;
-    margin-bottom:22px; color:var(--ink);
+    margin-bottom:22px; color:var(--paper);
   }
-  .hero h1 .accent{color:var(--red);}
-  .hero p.lead{font-size:17px; line-height:1.6; max-width:440px; color:var(--ink-dim); margin-bottom:32px;}
+  .hero h1 .accent{color:#F0A387;}
+  .hero p.lead{font-size:17px; line-height:1.6; max-width:440px; color:rgba(237,240,228,0.72); margin-bottom:32px;}
   .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
+  .hero .btn-outline{color:var(--paper); border-color:rgba(237,240,228,0.35);}
+  .hero .btn-outline:hover{background:rgba(237,240,228,0.12);}
   .hero-chips{display:flex; gap:22px; flex-wrap:wrap; align-items:baseline;}
   .chip{
     display:flex; align-items:baseline; gap:7px;
-    font-size:13px; font-weight:500; color:var(--ink-dim);
-    border-top:1px solid var(--line); padding-top:12px;
+    font-size:13px; font-weight:500; color:rgba(237,240,228,0.62);
+    border-top:1px solid rgba(237,240,228,0.25); padding-top:12px;
   }
-  .chip b{font-family:'IBM Plex Mono'; font-size:17px; color:var(--ink); font-weight:600;}
+  .chip b{font-family:'IBM Plex Mono'; font-size:17px; color:var(--paper); font-weight:600;}
 
   .hero-photo{position:relative;}
   .photo-card{
@@ -493,7 +495,7 @@
     <div class="wrap">
       <div class="cta-final">
         <div class="cta-photo">
-          <img src="pizza-foto-cta.jpg" alt="Fina Protein Lab">
+          <img src="pizza-foto-cta-crop.jpg" alt="Fina Protein Lab">
           <svg class="cta-stamp" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="92" fill="#C6402A"/>
             <path id="circlePath2" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" fill="none"/>
