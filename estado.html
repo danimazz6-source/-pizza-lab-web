@@ -13,15 +13,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --charcoal:#272F20;
-    --cream:#EDF0E4;
-    --cream-2:#DCE2CB;
-    --red:#D1603F;
-    --red-dark:#AE4B30;
+    --charcoal:#241A17;
+    --cream:#F6F1E6;
+    --cream-2:#EFE6D2;
+    --red:#822D2C;
+    --red-dark:#641F1F;
     --green:#5C6B4A;
     --amber:#B7791F;
-    --grey-mid:rgba(39,47,32,0.62);
-    --line:rgba(39,47,32,0.15);
+    --grey-mid:rgba(36,26,23,0.62);
+    --line:rgba(36,26,23,0.15);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{background:var(--cream); color:var(--charcoal); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased;}
@@ -65,7 +65,7 @@
 <body>
 <div class="wrap">
   <div class="logo">
-    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#EDF0E4"/><circle cx="12" cy="10" r="1.3" fill="#D1603F"/><circle cx="14.5" cy="14.5" r="1.3" fill="#D1603F"/><circle cx="9.5" cy="15" r="1.3" fill="#D1603F"/></svg></div>
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F6F1E6"/><circle cx="12" cy="10" r="1.3" fill="#822D2C"/><circle cx="14.5" cy="14.5" r="1.3" fill="#822D2C"/><circle cx="9.5" cy="15" r="1.3" fill="#822D2C"/></svg></div>
     Fina Protein Lab
   </div>
 
@@ -84,7 +84,7 @@
   const STATES = {
     aprobado: {
       icon: 'ok',
-      svg: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#EDF0E4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      svg: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#F6F1E6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       title: '¡Pedido confirmado!',
       sub: 'Tu pago se acreditó correctamente. Preparamos tu pizza fresca y te la entregamos el próximo miércoles.',
       card: 'Vas a recibir la confirmación por Mercado Pago. Cualquier duda sobre tu pedido, escribinos por WhatsApp con tu nombre y el número de operación.'
@@ -92,7 +92,7 @@
     approved: null,
     rechazado: {
       icon: 'fail',
-      svg: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#EDF0E4" stroke-width="2.4" stroke-linecap="round"/></svg>',
+      svg: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#F6F1E6" stroke-width="2.4" stroke-linecap="round"/></svg>',
       title: 'No pudimos procesar el pago',
       sub: 'Algo falló al confirmar tu pago con Mercado Pago. No te preocupes, no se te cobró nada.',
       card: 'Podés volver al carrito e intentar de nuevo, probando con otro medio de pago si el problema persiste.'
@@ -100,7 +100,7 @@
     rejected: null,
     pendiente: {
       icon: 'pending',
-      svg: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#EDF0E4" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#EDF0E4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      svg: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#F6F1E6" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#F6F1E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       title: 'Tu pago está pendiente',
       sub: 'Mercado Pago todavía está procesando tu pago (esto pasa con algunos medios de pago, como transferencias o efectivo).',
       card: 'Apenas se acredite el pago vas a recibir la confirmación. Si en unas horas seguís sin novedades, escribinos por WhatsApp.'

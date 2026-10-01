@@ -30,16 +30,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#EDF0E4;
-    --paper-2:#DCE2CB;
-    --ink:#272F20;
-    --ink-dim:rgba(39,47,32,0.62);
-    --ink-dim2:rgba(39,47,32,0.42);
-    --red:#D1603F;
-    --red-dark:#AE4B30;
+    --paper:#F6F1E6;
+    --paper-2:#EFE6D2;
+    --ink:#241A17;
+    --ink-dim:rgba(36,26,23,0.62);
+    --ink-dim2:rgba(36,26,23,0.42);
+    --red:#822D2C;
+    --red-dark:#641F1F;
     --olive:#5C6B4A;
     --olive-dark:#48553A;
-    --line:rgba(39,35,32,0.15);
+    --line:rgba(36,26,23,0.15);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -91,31 +91,31 @@
   .btn-outline:hover{background:rgba(43,36,31,0.06); transform:translateY(-1px);}
 
   /* HERO — split, foto natural */
-  .hero{padding:56px 28px 72px; background:var(--olive);}
+  .hero{padding:56px 28px 72px; background:var(--paper);}
   .hero-grid{display:grid; grid-template-columns:1fr 0.92fr; gap:56px; align-items:center;}
   .eyebrow{
     display:inline-flex; align-items:center; gap:10px;
     font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em;
-    color:rgba(237,240,228,0.72); margin-bottom:24px;
+    color:var(--ink-dim); margin-bottom:24px;
   }
-  .eyebrow .dot{width:5px; height:5px; border-radius:50%; background:#F0A387;}
+  .eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--red);}
   .hero h1{
     font-size:clamp(38px, 5vw, 60px);
     line-height:1.05; letter-spacing:-0.02em; font-weight:800;
-    margin-bottom:22px; color:var(--paper);
+    margin-bottom:22px; color:var(--ink);
   }
-  .hero h1 .accent{color:#F0A387;}
-  .hero p.lead{font-size:17px; line-height:1.6; max-width:440px; color:rgba(237,240,228,0.72); margin-bottom:32px;}
+  .hero h1 .accent{color:var(--red);}
+  .hero p.lead{font-size:17px; line-height:1.6; max-width:440px; color:var(--ink-dim); margin-bottom:32px;}
   .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
-  .hero .btn-outline{color:var(--paper); border-color:rgba(237,240,228,0.35);}
-  .hero .btn-outline:hover{background:rgba(237,240,228,0.12);}
+  .hero .btn-outline{color:var(--ink); border-color:rgba(36,26,23,0.25);}
+  .hero .btn-outline:hover{background:rgba(36,26,23,0.06);}
   .hero-chips{display:flex; gap:22px; flex-wrap:wrap; align-items:baseline;}
   .chip{
     display:flex; align-items:baseline; gap:7px;
-    font-size:13px; font-weight:500; color:rgba(237,240,228,0.62);
-    border-top:1px solid rgba(237,240,228,0.25); padding-top:12px;
+    font-size:13px; font-weight:500; color:var(--ink-dim2);
+    border-top:1px solid var(--line); padding-top:12px;
   }
-  .chip b{font-family:'IBM Plex Mono'; font-size:17px; color:var(--paper); font-weight:600;}
+  .chip b{font-family:'IBM Plex Mono'; font-size:17px; color:var(--ink); font-weight:600;}
 
   .hero-photo{position:relative;}
   .photo-card{
@@ -124,7 +124,7 @@
   }
   .float-tag{
     position:absolute; bottom:20px; left:20px;
-    background:var(--paper); border-radius:16px; padding:14px 18px;
+    background:#FFFFFF; border-radius:16px; padding:14px 18px;
     box-shadow:0 14px 30px -12px rgba(43,36,31,0.3);
     display:flex; align-items:center; gap:12px;
   }
@@ -150,7 +150,7 @@
     background:var(--paper); border-radius:20px; padding:26px 18px 22px;
     text-align:center; box-shadow:0 10px 24px -16px rgba(39,35,32,0.18);
   }
-  .nutri-card.feature{background:var(--olive);}
+  .nutri-card.feature{background:var(--red);}
   .nutri-card .icon-ring{
     width:46px; height:46px; border-radius:50%; margin:0 auto 16px;
     display:flex; align-items:center; justify-content:center;
@@ -250,7 +250,7 @@
 
   /* MARQUEE ENVIO */
   .marquee-bar{
-    background:var(--olive); color:rgba(245,241,231,0.88); overflow:hidden; white-space:nowrap;
+    background:var(--red); color:rgba(246,241,230,0.9); overflow:hidden; white-space:nowrap;
     position:relative;
   }
   .marquee-track{
@@ -334,7 +334,7 @@
           <a href="#nutricion" class="btn btn-outline">Ver macros</a>
         </div>
         <div class="hero-chips">
-          <div class="chip"><b>62g</b> proteína</div>
+          <div class="chip"><b style="color:var(--olive);">62g</b> proteína</div>
           <div class="chip"><b>3,3g</b> carbohidratos</div>
           <div class="chip"><b>453</b> kcal</div>
         </div>
