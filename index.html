@@ -141,31 +141,30 @@
   .section-head h2{font-size:clamp(28px,3.4vw,38px); font-weight:800; letter-spacing:-0.02em; line-height:1.12; color:var(--ink);}
   .section-head p{margin-top:14px; font-size:15.5px; color:var(--ink-dim); line-height:1.6; max-width:480px;}
 
-  /* NUTRITION — bento con jerarquía */
+  /* NUTRITION — tarjetas con ícono */
   .nutri{background:var(--paper-2);}
-  .nutri-bento{display:grid; grid-template-columns:1fr 1.15fr; gap:16px;}
-  .nutri-hero-card{
-    background:var(--olive); color:var(--paper); border-radius:24px;
-    padding:36px 32px; display:flex; flex-direction:column; justify-content:center;
+  .nutri-cards{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
+  .nutri-card{
+    background:var(--paper); border-radius:20px; padding:26px 18px 22px;
+    text-align:center; box-shadow:0 10px 24px -16px rgba(39,35,32,0.18);
   }
-  .nutri-hero-card .tag{
-    display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700;
-    text-transform:uppercase; letter-spacing:0.08em; color:rgba(245,241,231,0.72); margin-bottom:16px;
+  .nutri-card.feature{background:var(--olive);}
+  .nutri-card .icon-ring{
+    width:46px; height:46px; border-radius:50%; margin:0 auto 16px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(39,35,32,0.06);
   }
-  .nutri-hero-card .tag::before{content:'★'; font-size:10px;}
-  .nutri-hero-card .n{font-family:'IBM Plex Mono'; font-size:clamp(44px,6vw,64px); font-weight:600; line-height:1; color:var(--paper);}
-  .nutri-hero-card .l{font-size:14px; color:rgba(245,241,231,0.78); margin-top:10px;}
-  .nutri-sub-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
-  .nutri-stat{
-    background:var(--paper); border:1px solid var(--line); border-radius:18px;
-    padding:22px 22px; text-align:left;
-  }
-  .nutri-stat .n{font-family:'IBM Plex Mono'; font-size:clamp(22px,2.6vw,27px); font-weight:600; line-height:1; color:var(--ink);}
-  .nutri-stat .l{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim2); margin-top:8px;}
-  .nutri-foot{font-size:12px; color:var(--ink-dim2); margin-top:22px; font-family:'IBM Plex Mono';}
+  .nutri-card.feature .icon-ring{background:rgba(245,241,231,0.18);}
+  .nutri-card .icon-ring svg{width:22px; height:22px; stroke:var(--red);}
+  .nutri-card.feature .icon-ring svg{stroke:var(--paper);}
+  .nutri-card .n{font-family:'IBM Plex Mono'; font-size:clamp(21px,2.6vw,26px); font-weight:600; line-height:1; color:var(--ink);}
+  .nutri-card.feature .n{color:var(--paper); font-size:clamp(26px,3.2vw,32px);}
+  .nutri-card .l{font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-dim2); margin-top:8px;}
+  .nutri-card.feature .l{color:rgba(245,241,231,0.78);}
+  .nutri-foot{font-size:12px; color:var(--ink-dim2); margin-top:22px; font-family:'IBM Plex Mono'; text-align:center;}
   @media (max-width: 760px){
-    .nutri-bento{grid-template-columns:1fr;}
-    .nutri-hero-card{padding:30px 26px;}
+    .nutri-cards{grid-template-columns:repeat(2,1fr);}
+    .nutri-card.feature{grid-column:1 / -1;}
   }
 
   /* INGREDIENTES — foto plena, sin overlay */
@@ -249,8 +248,8 @@
 
   /* MARQUEE ENVIO */
   .marquee-bar{
-    background:var(--paper-2); color:var(--ink-dim); overflow:hidden; white-space:nowrap;
-    position:relative; border-bottom:1px solid var(--line);
+    background:var(--olive); color:rgba(245,241,231,0.88); overflow:hidden; white-space:nowrap;
+    position:relative;
   }
   .marquee-track{
     display:inline-flex; align-items:center;
@@ -261,7 +260,7 @@
     font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;
     padding:0 22px; display:inline-flex; align-items:center; gap:8px;
   }
-  .marquee-track span::after{content:'·'; opacity:0.6; margin-left:22px; font-size:12px; color:var(--red);}
+  .marquee-track span::after{content:'·'; opacity:0.7; margin-left:22px; font-size:12px; color:#F0A387;}
   @keyframes marquee{
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
@@ -361,17 +360,31 @@
         <h2>Los números, bien a la vista.</h2>
         <p>Por pizza (270 g). Sin sorpresas, sin letra chica.</p>
       </div>
-      <div class="nutri-bento">
-        <div class="nutri-hero-card">
-          <div class="tag">Muy alto</div>
+      <div class="nutri-cards">
+        <div class="nutri-card feature">
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7a2 2 0 1 1 3-1.7M18 7a2 2 0 1 0-3-1.7M6 17a2 2 0 1 0 3 1.7M18 17a2 2 0 1 1-3 1.7M8 6.6 16 6.6M8 17.4 16 17.4M7.3 7.8 16.7 16.2M16.7 7.8 7.3 16.2"/></svg></div>
           <div class="n">62g</div>
-          <div class="l">Proteínas por pizza</div>
+          <div class="l">Proteínas</div>
         </div>
-        <div class="nutri-sub-grid">
-          <div class="nutri-stat"><div class="n">3,3g</div><div class="l">Carbohidratos</div></div>
-          <div class="nutri-stat"><div class="n">453</div><div class="l">Kcal</div></div>
-          <div class="nutri-stat"><div class="n">0,7g</div><div class="l">Azúcares totales</div></div>
-          <div class="nutri-stat"><div class="n">21g</div><div class="l">Grasas totales</div></div>
+        <div class="nutri-card">
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v18M12 5 9.2 3M12 5l2.8-2M12 9.5 9.2 7.5M12 9.5l2.8-2M12 14 9.2 12M12 14l2.8-2"/></svg></div>
+          <div class="n">3,3g</div>
+          <div class="l">Carbohidratos</div>
+        </div>
+        <div class="nutri-card">
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c-3 3.5-5 6.3-5 9.3a5 5 0 0 0 10 0c0-1.3-.5-2.3-1.3-3.2.1 1.4-.6 2.3-1.4 2.3-1 0-1.2-1.3-1.2-2.1 0-1.6.7-3.4-1.1-6.3z"/></svg></div>
+          <div class="n">453</div>
+          <div class="l">Kcal</div>
+        </div>
+        <div class="nutri-card">
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8C9.5 6.3 6.5 10 6.5 13.5a5.5 5.5 0 0 0 11 0C17.5 10 14.5 6.3 12 2.8z"/></svg></div>
+          <div class="n">0,7g</div>
+          <div class="l">Azúcares</div>
+        </div>
+        <div class="nutri-card">
+          <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.3"/><circle cx="12" cy="12" r="2.3"/></svg></div>
+          <div class="n">21g</div>
+          <div class="l">Grasas</div>
         </div>
       </div>
       <div class="nutri-foot">% VDR calculado sobre una dieta de 2.000 kcal. Valores por unidad de 270 g.</div>
