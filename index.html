@@ -77,7 +77,7 @@
   .navlinks{display:flex; gap:34px; font-size:13px; font-weight:600; color:var(--ink);}
   .navlinks a{opacity:0.62; transition:opacity .2s;}
   .navlinks a:hover{opacity:1;}
-  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:13px 28px;}
   .nav-cta{display:flex; align-items:center; gap:12px;}
   .nav-mascot{width:40px; height:auto; object-fit:contain; opacity:0.85;}
   @media (max-width:480px){ .nav-mascot{display:none;} }
@@ -94,7 +94,7 @@
   .btn-outline:hover{background:rgba(43,36,31,0.06); transform:translateY(-1px);}
 
   /* HERO — split, foto natural */
-  .hero{padding:44px 28px 52px; background:var(--paper);}
+  .hero{padding:32px 28px 40px; background:var(--paper);}
   .hero-grid{display:grid; grid-template-columns:1fr 0.92fr; gap:56px; align-items:center;}
   .eyebrow{
     display:inline-flex; align-items:center; gap:10px;
@@ -135,8 +135,8 @@
   .float-tag .l{font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim); margin-top:3px;}
 
   /* SECTIONS */
-  section{padding:48px 28px;}
-  .section-head{max-width:620px; margin-bottom:38px;}
+  section{padding:36px 28px;}
+  .section-head{max-width:620px; margin-bottom:28px;}
   .kicker{
     display:flex; align-items:center; gap:9px;
     font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em;
@@ -150,7 +150,7 @@
   .nutri{background:var(--paper-2);}
   .nutri-cards{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
   .nutri-card{
-    background:var(--paper); border-radius:20px; padding:20px 16px 18px;
+    background:var(--paper); border-radius:20px; padding:16px 14px 14px;
     text-align:center; box-shadow:0 10px 24px -16px rgba(39,35,32,0.18);
   }
   .nutri-card.feature{background:var(--red);}
@@ -175,7 +175,7 @@
   /* INGREDIENTES — foto plena, sin overlay */
   .ing-photo-band{width:100%; max-width:560px; margin:0 auto; height:380px;}
   .ing-photo-band img{object-position:center center;}
-  .ing-body{padding-top:32px;}
+  .ing-body{padding-top:24px;}
   .ing-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:48px; align-items:start;}
   .ing-chips{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px;}
   .ing-chip{
@@ -191,7 +191,7 @@
 
   /* COMO FUNCIONA */
   .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  .step{background:var(--paper-2); border-radius:20px; padding:22px 20px; border:1px solid var(--line);}
+  .step{background:var(--paper-2); border-radius:20px; padding:16px 16px; border:1px solid var(--line);}
   .step .num{
     font-family:'IBM Plex Mono'; font-weight:700; font-size:13px;
     width:32px; height:32px; border-radius:50%; background:var(--red); color:var(--paper);
@@ -203,11 +203,11 @@
   /* FAQ */
   .faq{max-width:760px;}
   .faq-item{border-bottom:1px solid var(--line);}
-  .faq-q{display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:700; font-size:15.5px; gap:16px; padding:22px 0; color:var(--ink);}
+  .faq-q{display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:700; font-size:15.5px; gap:16px; padding:16px 0; color:var(--ink);}
   .faq-q .plus{font-family:'IBM Plex Mono'; font-size:18px; color:var(--red); transition:transform .2s; flex-shrink:0;}
   .faq-item.open .plus{transform:rotate(45deg);}
   .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
-  .faq-a p{padding-bottom:22px; font-size:14px; color:var(--ink-dim); line-height:1.6; max-width:600px;}
+  .faq-a p{padding-bottom:16px; font-size:14px; color:var(--ink-dim); line-height:1.6; max-width:600px;}
 
   /* CTA FINAL — tarjeta clara con foto redonda */
   .cta-final{
@@ -218,7 +218,7 @@
   .cta-photo{position:relative; min-height:280px;}
   .cta-photo img{object-position:center 30%;}
   .cta-stamp{position:absolute; top:16px; left:16px; width:92px; height:92px;}
-  .cta-text{padding:36px 32px; display:flex; flex-direction:column; justify-content:center;}
+  .cta-text{padding:26px 24px; display:flex; flex-direction:column; justify-content:center;}
   .cta-text h2{font-size:clamp(26px,3.2vw,36px); font-weight:800; margin-bottom:14px; letter-spacing:-0.02em; color:var(--ink);}
   .cta-text p{color:var(--ink-dim); margin-bottom:26px; font-size:15.5px;}
   @media (max-width: 760px){
@@ -227,7 +227,7 @@
   }
 
   /* FOOTER */
-  footer{padding:30px 28px 24px; background:var(--paper); border-top:1px solid var(--line); position:relative; overflow:hidden;}
+  footer{padding:22px 28px 18px; background:var(--paper); border-top:1px solid var(--line); position:relative; overflow:hidden;}
   .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
   .foot-links{display:flex; gap:24px; font-size:13px; font-weight:600; color:var(--ink-dim);}
   .foot-links a:hover{color:var(--ink);}
@@ -244,13 +244,13 @@
     .navlinks{display:none;}
   }
   @media (max-width: 480px){
-    .nav{padding:14px 18px;}
+    .nav{padding:11px 18px;}
     .logo{font-size:16px; gap:8px;}
     .logo .word{flex-direction:row; align-items:baseline; gap:6px; white-space:nowrap;}
     .logo .word small{display:none;}
     .mark{width:30px; height:30px;}
     .mark svg{width:17px; height:17px;}
-    .btn{padding:11px 18px; font-size:13px;}
+    .btn{padding:10px 16px; font-size:13px;}
   }
 
   /* MARQUEE ENVIO */
@@ -265,7 +265,7 @@
   }
   .marquee-track span{
     font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;
-    padding:0 22px; display:inline-flex; align-items:center; gap:8px;
+    padding:0 18px; display:inline-flex; align-items:center; gap:8px;
   }
   .marquee-track span::after{content:'·'; opacity:0.7; margin-left:22px; font-size:12px; color:#F0A387;}
   @keyframes marquee{
@@ -279,7 +279,7 @@
   /* COUNTDOWN */
   .countdown-bar{
     background:var(--paper); color:var(--ink);
-    text-align:center; padding:13px 20px;
+    text-align:center; padding:10px 20px;
     font-size:14px; font-weight:600;
     border-bottom:1px solid var(--line);
   }
@@ -288,7 +288,7 @@
     letter-spacing:0.02em; font-size:14.5px;
   }
   @media (max-width:600px){
-    .countdown-bar{font-size:12.5px; padding:11px 14px;}
+    .countdown-bar{font-size:12.5px; padding:9px 14px;}
     .countdown-bar b{font-size:13px;}
   }
 </style>
@@ -406,7 +406,7 @@
     <div class="ing-photo-band">
       <img src="pizza-foto-ingredientes.jpg" alt="Fina Protein Lab — ingredientes reales">
     </div>
-    <div class="wrap ing-body" style="padding-bottom:48px;">
+    <div class="wrap ing-body" style="padding-bottom:36px;">
       <div class="ing-grid">
         <div class="section-head" style="margin-bottom:0;">
           <div class="kicker"><span class="dot"></span>Qué lleva adentro</div>
