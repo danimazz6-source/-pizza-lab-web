@@ -30,14 +30,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FAF5EA;
-    --paper-2:#F1E6D1;
-    --ink:#2B241F;
-    --ink-dim:rgba(43,36,31,0.62);
-    --ink-dim2:rgba(43,36,31,0.42);
+    --paper:#F5F1E7;
+    --paper-2:#EAE2CF;
+    --ink:#272320;
+    --ink-dim:rgba(39,35,32,0.62);
+    --ink-dim2:rgba(39,35,32,0.42);
     --red:#C6402A;
     --red-dark:#9E3322;
-    --line:rgba(43,36,31,0.14);
+    --olive:#55624A;
+    --olive-dark:#404A38;
+    --line:rgba(39,35,32,0.15);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -139,27 +141,36 @@
   .section-head h2{font-size:clamp(28px,3.4vw,38px); font-weight:800; letter-spacing:-0.02em; line-height:1.12; color:var(--ink);}
   .section-head p{margin-top:14px; font-size:15.5px; color:var(--ink-dim); line-height:1.6; max-width:480px;}
 
-  /* NUTRITION STATS — minimal strip, banda clara */
+  /* NUTRITION — bento con jerarquía */
   .nutri{background:var(--paper-2);}
-  .nutri-strip{
-    display:grid; grid-template-columns:repeat(5,1fr);
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  .nutri-bento{display:grid; grid-template-columns:1fr 1.15fr; gap:16px;}
+  .nutri-hero-card{
+    background:var(--olive); color:var(--paper); border-radius:24px;
+    padding:36px 32px; display:flex; flex-direction:column; justify-content:center;
   }
-  .nutri-stat{padding:30px 20px; border-left:1px solid var(--line); text-align:left;}
-  .nutri-stat:first-child{border-left:none;}
-  .nutri-stat .n{font-family:'IBM Plex Mono'; font-size:clamp(26px,3.4vw,34px); font-weight:600; line-height:1; color:var(--ink);}
-  .nutri-stat.feature .n{color:var(--red);}
-  .nutri-stat .l{font-size:11.5px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-dim2); margin-top:10px;}
+  .nutri-hero-card .tag{
+    display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.08em; color:rgba(245,241,231,0.72); margin-bottom:16px;
+  }
+  .nutri-hero-card .tag::before{content:'★'; font-size:10px;}
+  .nutri-hero-card .n{font-family:'IBM Plex Mono'; font-size:clamp(44px,6vw,64px); font-weight:600; line-height:1; color:var(--paper);}
+  .nutri-hero-card .l{font-size:14px; color:rgba(245,241,231,0.78); margin-top:10px;}
+  .nutri-sub-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  .nutri-stat{
+    background:var(--paper); border:1px solid var(--line); border-radius:18px;
+    padding:22px 22px; text-align:left;
+  }
+  .nutri-stat .n{font-family:'IBM Plex Mono'; font-size:clamp(22px,2.6vw,27px); font-weight:600; line-height:1; color:var(--ink);}
+  .nutri-stat .l{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim2); margin-top:8px;}
   .nutri-foot{font-size:12px; color:var(--ink-dim2); margin-top:22px; font-family:'IBM Plex Mono';}
   @media (max-width: 760px){
-    .nutri-strip{grid-template-columns:repeat(3,1fr);}
-    .nutri-stat{border-left:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 16px;}
-    .nutri-stat:nth-child(3n+1){border-left:none;}
+    .nutri-bento{grid-template-columns:1fr;}
+    .nutri-hero-card{padding:30px 26px;}
   }
 
   /* INGREDIENTES — foto plena, sin overlay */
   .ing-photo-band{width:100%; height:440px;}
-  .ing-photo-band img{object-position:center 35%;}
+  .ing-photo-band img{object-position:center 46%;}
   .ing-body{padding-top:48px;}
   .ing-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:48px; align-items:start;}
   .ing-chips{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px;}
@@ -350,12 +361,18 @@
         <h2>Los números, bien a la vista.</h2>
         <p>Por pizza (270 g). Sin sorpresas, sin letra chica.</p>
       </div>
-      <div class="nutri-strip">
-        <div class="nutri-stat feature"><div class="n">62g</div><div class="l">Proteínas</div></div>
-        <div class="nutri-stat"><div class="n">3,3g</div><div class="l">Carbohidratos</div></div>
-        <div class="nutri-stat"><div class="n">453</div><div class="l">Kcal</div></div>
-        <div class="nutri-stat"><div class="n">0,7g</div><div class="l">Azúcares totales</div></div>
-        <div class="nutri-stat"><div class="n">21g</div><div class="l">Grasas totales</div></div>
+      <div class="nutri-bento">
+        <div class="nutri-hero-card">
+          <div class="tag">Muy alto</div>
+          <div class="n">62g</div>
+          <div class="l">Proteínas por pizza</div>
+        </div>
+        <div class="nutri-sub-grid">
+          <div class="nutri-stat"><div class="n">3,3g</div><div class="l">Carbohidratos</div></div>
+          <div class="nutri-stat"><div class="n">453</div><div class="l">Kcal</div></div>
+          <div class="nutri-stat"><div class="n">0,7g</div><div class="l">Azúcares totales</div></div>
+          <div class="nutri-stat"><div class="n">21g</div><div class="l">Grasas totales</div></div>
+        </div>
       </div>
       <div class="nutri-foot">% VDR calculado sobre una dieta de 2.000 kcal. Valores por unidad de 270 g.</div>
     </div>
