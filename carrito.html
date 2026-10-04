@@ -221,6 +221,12 @@
       <div class="field-error">Completá tu nombre</div>
     </div>
 
+    <div class="field" id="field-dni">
+      <label for="dni">DNI</label>
+      <input type="text" id="dni" inputmode="numeric" autocomplete="off" placeholder="Sin puntos" maxlength="10">
+      <div class="field-error">Completá tu DNI</div>
+    </div>
+
     <div class="field" id="field-telefono">
       <label for="telefono">Teléfono (WhatsApp)</label>
       <input type="tel" id="telefono" autocomplete="tel" placeholder="11 xxxx-xxxx">
@@ -247,8 +253,8 @@
     </div>
 
     <div class="field">
-      <label for="notas">Notas para la entrega (opcional)</label>
-      <textarea id="notas" rows="2" placeholder="Timbre, referencias, horario preferido..."></textarea>
+      <label for="notas">Comentarios / notas (opcional)</label>
+      <textarea id="notas" rows="2" placeholder="Timbre, referencias, horario preferido, cualquier aclaración..."></textarea>
     </div>
   </div>
 
@@ -365,6 +371,7 @@
   function validateDelivery(){
     const required = [
       ['nombre', 'field-nombre'],
+      ['dni', 'field-dni'],
       ['telefono', 'field-telefono'],
       ['direccion', 'field-direccion'],
       ['barrio', 'field-barrio'],
@@ -391,6 +398,7 @@
   function getDeliveryData(){
     return {
       nombre: document.getElementById('nombre').value.trim(),
+      dni: document.getElementById('dni').value.replace(/\D/g, ''),
       telefono: document.getElementById('telefono').value.trim(),
       direccion: document.getElementById('direccion').value.trim(),
       barrio: document.getElementById('barrio').value.trim(),
