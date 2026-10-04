@@ -133,12 +133,8 @@
   .delivery-form{margin-top:24px; background:var(--cream-2); border-radius:20px; padding:22px 20px;}
   .delivery-form h2{font-size:15.5px; font-weight:700; margin-bottom:4px;}
   .delivery-form .sub2{font-size:12.5px; color:var(--grey-mid); margin-bottom:18px;}
-  .zone-note{
-    display:inline-flex; align-items:center; gap:7px;
-    font-size:12.5px; font-weight:600; color:var(--red);
-    margin:-6px 0 18px;
-  }
-  .zone-note svg{width:16px; height:16px; flex-shrink:0;}
+
+  .req{color:var(--red); font-weight:700;}
   .field{margin-bottom:14px;}
   .field:last-child{margin-bottom:0;}
   .field label{display:block; font-size:12.5px; font-weight:600; margin-bottom:6px;}
@@ -185,7 +181,7 @@
     </div>
   </div>
 
-  <p class="sub2-note">Entrega los miércoles por CABA — mirá abajo el detalle y coordiná tu entrega.</p>
+  <p class="sub2-note">Entrega los miércoles en CABA y GBA — mirá abajo el detalle y coordiná tu entrega.</p>
 
   <div class="ladder">
     <div class="ladder-top">
@@ -209,44 +205,40 @@
 
   <div class="delivery-form">
     <h2>Datos de entrega</h2>
-    <div class="sub2">Los necesitamos para coordinar tu pedido del miércoles. Por ahora repartimos solo dentro de CABA.</div>
-    <a href="https://wa.me/5491173609839?text=Hola!%20Soy%20de%20fuera%20de%20CABA%20y%20quería%20consultar%20por%20la%20entrega%20de%20mi%20pedido." target="_blank" rel="noopener" class="zone-note">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.4-.6-2.3-1.1-3.2-2.6-.2-.3 0-.5.1-.6.2-.2.4-.4.5-.6.1-.2.1-.4 0-.5-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.2-.8.8-.8 2s.9 2.3 1 2.4c.1.2 1.8 2.8 4.4 3.8 2.1.8 2.1.5 2.4.5.3 0 1.6-.6 1.8-1.3.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l4.9-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
-      ¿Estás fuera de CABA? Escribinos por WhatsApp y coordinamos la entrega
-    </a>
+    <div class="sub2">Los necesitamos para coordinar tu pedido del miércoles. Repartimos en CABA y GBA.<br><span class="req">*</span> Campos obligatorios</div>
 
     <div class="field" id="field-nombre">
-      <label for="nombre">Nombre y apellido</label>
+      <label for="nombre">Nombre y apellido <span class="req">*</span></label>
       <input type="text" id="nombre" autocomplete="name">
       <div class="field-error">Completá tu nombre</div>
     </div>
 
     <div class="field" id="field-dni">
-      <label for="dni">DNI</label>
+      <label for="dni">DNI <span class="req">*</span></label>
       <input type="text" id="dni" inputmode="numeric" autocomplete="off" placeholder="Sin puntos" maxlength="10">
       <div class="field-error">Completá tu DNI</div>
     </div>
 
     <div class="field" id="field-telefono">
-      <label for="telefono">Teléfono (WhatsApp)</label>
+      <label for="telefono">Teléfono (WhatsApp) <span class="req">*</span></label>
       <input type="tel" id="telefono" autocomplete="tel" placeholder="11 xxxx-xxxx">
       <div class="field-error">Completá un teléfono de contacto</div>
     </div>
 
     <div class="field" id="field-direccion">
-      <label for="direccion">Dirección (calle, altura, piso/depto)</label>
+      <label for="direccion">Dirección (calle, altura, piso/depto) <span class="req">*</span></label>
       <input type="text" id="direccion" autocomplete="street-address">
       <div class="field-error">Completá la dirección de entrega</div>
     </div>
 
     <div class="field-row">
       <div class="field" id="field-barrio">
-        <label for="barrio">Barrio</label>
+        <label for="barrio">Barrio / localidad <span class="req">*</span></label>
         <input type="text" id="barrio">
-        <div class="field-error">Completá el barrio</div>
+        <div class="field-error">Completá el barrio o localidad</div>
       </div>
       <div class="field" id="field-cp">
-        <label for="cp">Código postal</label>
+        <label for="cp">Código postal <span class="req">*</span></label>
         <input type="text" id="cp">
         <div class="field-error">Completá el código postal</div>
       </div>
@@ -383,9 +375,21 @@
     required.forEach(([id, fieldId]) => {
       const input = document.getElementById(id);
       const field = document.getElementById(fieldId);
-      const isEmpty = input.value.trim() === '';
-      field.classList.toggle('invalid', isEmpty);
-      if(isEmpty){
+      const errEl = field.querySelector('.field-error');
+      if(errEl && !errEl.dataset.default) errEl.dataset.default = errEl.textContent;
+      const value = input.value.trim();
+      const digits = value.replace(/\D/g, '');
+      let bad = value === '';
+      let msg = errEl ? errEl.dataset.default : '';
+      if(!bad && id === 'dni' && (digits.length < 7 || digits.length > 8)){
+        bad = true; msg = 'Ingresá tu DNI sin puntos (7 u 8 números)';
+      }
+      if(!bad && id === 'telefono' && digits.length < 8){
+        bad = true; msg = 'Ingresá un teléfono válido, con código de área';
+      }
+      if(errEl) errEl.textContent = msg;
+      field.classList.toggle('invalid', bad);
+      if(bad){
         valid = false;
         if(!firstInvalidEl) firstInvalidEl = input;
       }
@@ -421,7 +425,7 @@
     const subtotal = packs * unit * PACK_SIZE;
     if(subtotal < FREE_SHIPPING_THRESHOLD){
       items.push({
-        title: "Envío a CABA",
+        title: "Envío a CABA y GBA",
         quantity: 1,
         unit_price: SHIPPING_FEE
       });
