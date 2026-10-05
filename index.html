@@ -346,9 +346,8 @@
 </div>
 
 <header>
-  <div class="countdown-bar" id="countdown-bar">
-    <span id="cd-far">Pedí antes del domingo 23:59hs y recibilo el miércoles <b id="cd-far-delivery">—</b></span>
-    <span id="cd-near" style="display:none;">Pedí antes de
+  <div class="countdown-bar" id="countdown-bar" style="display:none;">
+    <span id="cd-near">Pedí antes de
       <span class="cd-chips">
         <span class="cd-chip" id="cd-days-wrap"><b id="cd-days">—</b><span>Días</span></span>
         <span class="cd-chip"><b id="cd-hours">—</b><span>Hs</span></span>
@@ -641,31 +640,25 @@
     return dd + '/' + mm;
   }
 
+  // La barra "Pedí antes de..." existe solo en las últimas 24hs antes del corte.
+  // Antes no se muestra, y al llegar a 0 se oculta sola (el próximo corte queda a 7 días).
   function updateCountdown(){
-    const farEl = document.getElementById('cd-far');
-    const nearEl = document.getElementById('cd-near');
-    if(!farEl || !nearEl) return;
+    const bar = document.getElementById('countdown-bar');
+    if(!bar) return;
 
     const now = new Date();
     const cutoff = getNextCutoff();
-    let diff = Math.max(0, cutoff - now);
-    const delivery = new Date(cutoff);
-    delivery.setDate(delivery.getDate() + 3);
-
+    const diff = cutoff - now;
     const URGENT_MS = 24 * 3600 * 1000;
 
-    if(diff > URGENT_MS){
-      // Más de 24hs para el corte: texto simple, sin reloj en vivo.
-      farEl.style.display = '';
-      nearEl.style.display = 'none';
-      const farDeliveryEl = document.getElementById('cd-far-delivery');
-      if(farDeliveryEl) farDeliveryEl.textContent = formatDM(delivery);
+    if(diff <= 0 || diff > URGENT_MS){
+      bar.style.display = 'none';
       return;
     }
+    bar.style.display = '';
 
-    // Últimas 24hs: contador en vivo con chips.
-    farEl.style.display = 'none';
-    nearEl.style.display = '';
+    const delivery = new Date(cutoff);
+    delivery.setDate(delivery.getDate() + 3);
 
     const daysEl = document.getElementById('cd-days');
     const daysWrapEl = document.getElementById('cd-days-wrap');
