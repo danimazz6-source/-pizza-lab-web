@@ -258,15 +258,16 @@
   // ---- CONFIGURACIÓN (misma lógica de precios que la versión 1) ----
   const PACK_SIZE = 2;
   const PACK_BASE_UNIT = 19000;
-  const PACK_STEP = 750;
-  const PACK_FLOOR = 16000;
+  // Precio por pizza según packs: 3 y 4 packs al mismo precio, 5+ al más bajo
+  const PACK_PRICES = {1: 19000, 2: 18250, 3: 17500, 4: 17500};
+  const PACK_FLOOR = 16500;
 
-  const FREE_SHIPPING_THRESHOLD = 90000;
+  const FREE_SHIPPING_THRESHOLD = 110000;
   const SHIPPING_FEE = 9000;
 
   function unitPriceForPacks(totalPacks){
     if(totalPacks <= 0) return PACK_BASE_UNIT;
-    return Math.max(PACK_BASE_UNIT - (totalPacks - 1) * PACK_STEP, PACK_FLOOR);
+    return PACK_PRICES[totalPacks] || PACK_FLOOR;
   }
 
   const DISPLAY_TIERS = [1, 2, 3, 4, 5].map(packs => ({
@@ -313,7 +314,13 @@
       nextEl.textContent = 'Elegí tus packs para empezar';
     } else if(packs < 5){
       const nextUnit = unitPriceForPacks(packs + 1);
-      nextEl.innerHTML = `Sumá 1 pack más y pagás <b>${fmt(nextUnit)}</b> por pizza`;
+      const subtotalNow = packs * unitPriceForPacks(packs) * PACK_SIZE;
+      const subtotalNext = (packs + 1) * nextUnit * PACK_SIZE;
+      if(subtotalNow < FREE_SHIPPING_THRESHOLD && subtotalNext >= FREE_SHIPPING_THRESHOLD){
+        nextEl.innerHTML = `Sumá 1 pack más y el <b>envío es gratis</b>`;
+      } else {
+        nextEl.innerHTML = `Sumá 1 pack más y pagás <b>${fmt(nextUnit)}</b> por pizza`;
+      }
     } else {
       nextEl.innerHTML = `Estás en el precio más bajo: <b>${fmt(PACK_FLOOR)}</b> por pizza`;
     }
