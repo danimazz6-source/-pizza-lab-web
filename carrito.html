@@ -265,19 +265,23 @@
   const PACK_FLOOR = 16500;
 
   // Envío por zona según código postal (mantener igual que en el backend)
-  // Zona 1: CABA (gratis desde $110.000). Zonas 2 y 3: se cobra siempre.
+  // Zona 1: CABA (gratis desde $110.000). Zonas 2, 3 y 4: se cobra siempre.
   const ZONES = {
     1: {label: "CABA", fee: 9000, freeFrom: 110000},
     2: {label: "GBA zona 2", fee: 13000, freeFrom: null},
-    3: {label: "GBA zona 3", fee: 19000, freeFrom: null},
+    3: {label: "GBA zona 3", fee: 27000, freeFrom: null},
+    4: {label: "GBA zona 4", fee: 42000, freeFrom: null},
   };
+  // Zona 4: Marcos Paz, Gral. Rodríguez, La Plata y alrededores, Zárate, Campana, Luján
+  const ZONE4_RANGES = [[1727,1727],[1748,1749],[1890,1929],[2800,2805],[6700,6700]];
   const ZONE2_RANGES = [[1600,1618],[1636,1679],[1686,1689],[1702,1714],[1822,1832],[1870,1876]];
-  // devuelve 1, 2, 3 | 0 = fuera de cobertura | null = CP inválido
+  // devuelve 1, 2, 3, 4 | 0 = fuera de cobertura | null = CP inválido
   function zoneForCp(raw){
     const m = String(raw || '').match(/\d{4}/);
     if(!m) return null;
     const n = parseInt(m[0], 10);
     if(n >= 1000 && n <= 1499) return 1;
+    if(ZONE4_RANGES.some(([a,b]) => n >= a && n <= b)) return 4;
     if(n >= 1600 && n <= 1899) return ZONE2_RANGES.some(([a,b]) => n >= a && n <= b) ? 2 : 3;
     return 0;
   }
