@@ -288,6 +288,23 @@
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
   }
+
+  /* CONGELADA / CAJA */
+  .frozen{padding:84px 0 24px;}
+  .frozen-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .frozen-photos{position:relative;}
+  .frozen-photos .ph-a{width:100%; max-width:520px; aspect-ratio:4/5; border-radius:24px; overflow:hidden; box-shadow:0 24px 50px rgba(36,26,23,.12);}
+  .frozen-photos img{height:100%; object-fit:cover;}
+  .frozen-facts{display:grid; gap:14px; margin-top:26px;}
+  .frozen-fact{display:flex; gap:16px; align-items:center; background:var(--paper-2); border-radius:16px; padding:16px 18px;}
+  .frozen-fact .ic{flex:none; width:44px; height:44px; border-radius:12px; background:var(--red); color:var(--paper); display:flex; align-items:center; justify-content:center; font-size:21px;}
+  .frozen-fact b{display:block; font-family:'Archivo',sans-serif; font-size:17px; font-weight:800; letter-spacing:-0.01em;}
+  .frozen-fact span{display:block; font-size:14px; color:var(--ink-dim); margin-top:2px; line-height:1.4;}
+  @media (max-width:900px){
+    .frozen{padding:56px 0 8px;}
+    .frozen-grid{grid-template-columns:1fr; gap:34px;}
+    .frozen-photos{max-width:460px; margin:0 auto; width:100%;}
+  }
   @media (prefers-reduced-motion: reduce){
     .marquee-track{animation:none;}
   }
@@ -480,6 +497,29 @@
           <div class="allergen-note">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3 L22 20 H2 Z" stroke="#9A8F80" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9.5v5" stroke="#9A8F80" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="17" r="0.9" fill="#9A8F80"/></svg>
             Contiene huevo y derivados de leche
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONGELADA -->
+  <section id="congelada" class="frozen">
+    <div class="wrap">
+      <div class="frozen-grid">
+        <div class="frozen-photos">
+          <div class="ph-a"><img src="pizza-caja-pila.jpg" alt="Pila de cajas de Fina Protein Lab: 62 gr de proteína por pizza" loading="lazy"></div>
+        </div>
+        <div>
+          <div class="section-head" style="margin-bottom:0;">
+            <div class="kicker"><span class="dot"></span>Cómo llega</div>
+            <h2>Pizza congelada, en su caja.</h2>
+            <p>Cada pizza se elabora para tu pedido, se congela y te llega en su caja individual. La guardás en el freezer y la hacés cuando quieras.</p>
+          </div>
+          <div class="frozen-facts">
+            <div class="frozen-fact"><div class="ic">❄️</div><div><b>Llega congelada</b><span>Lista para guardar en tu freezer apenas la recibís.</span></div></div>
+            <div class="frozen-fact"><div class="ic">📦</div><div><b>Hasta 180 días</b><span>En óptimas condiciones dentro del freezer.</span></div></div>
+            <div class="frozen-fact"><div class="ic">🔥</div><div><b>Del freezer al horno</b><span>180°C por 20 minutos. No hace falta descongelar.</span></div></div>
           </div>
         </div>
       </div>
