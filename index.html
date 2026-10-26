@@ -310,6 +310,13 @@
   }
 
   /* COUNTDOWN */
+  .promo-bar{background:var(--red); color:var(--paper); text-align:center; padding:10px 16px; font-size:14px; font-weight:700; display:none;}
+  .promo-bar a{text-decoration:underline; text-underline-offset:3px;}
+  .promo-bar small{display:block; font-weight:500; font-size:12px; opacity:.88; margin-top:2px;}
+  .pb-chips{display:inline-flex; gap:6px; margin:0 7px; vertical-align:middle;}
+  .pb-chip{background:var(--ink); color:var(--paper); font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:14px; padding:5px 9px 4px; border-radius:8px; display:inline-flex; flex-direction:column; align-items:center; line-height:1.05; min-width:30px;}
+  .pb-chip span{font-size:7px; font-weight:700; color:rgba(246,241,230,.65); text-transform:uppercase; letter-spacing:.05em; margin-top:1px;}
+  @media (max-width:600px){ .promo-bar{font-size:12.5px; padding:8px 10px;} .pb-chip{font-size:12px; padding:3px 6px 2.5px; min-width:24px;} .pb-chips{gap:4px; margin:0 4px;} }
   .countdown-bar{
     background:var(--paper); color:var(--ink);
     text-align:center; padding:10px 20px;
@@ -348,12 +355,12 @@
 
 <div class="marquee-bar">
   <div class="marquee-track">
-    <span>Envío gratis en CABA en pedidos +$110.000</span>
+    <span class="std-ship">Envío gratis en CABA en pedidos +$110.000</span><span class="promo-only" style="display:none">SOLO HOY: envío gratis a CABA sin mínimo</span>
     <span>3 cuotas sin interés en pedidos +$100.000</span>
     <span>Pizza proteica</span>
     <span>Keto</span>
     <span>Low carb</span>
-    <span>Envío gratis en CABA en pedidos +$110.000</span>
+    <span class="std-ship">Envío gratis en CABA en pedidos +$110.000</span><span class="promo-only" style="display:none">SOLO HOY: envío gratis a CABA sin mínimo</span>
     <span>3 cuotas sin interés en pedidos +$100.000</span>
     <span>Pizza proteica</span>
     <span>Keto</span>
@@ -362,6 +369,10 @@
 </div>
 
 <header>
+  <div class="promo-bar" id="promo-bar">Pedí con envío gratis a CABA hasta
+    <span class="pb-chips"><span class="pb-chip"><b id="pb-h">00</b><span>Hs</span></span><span class="pb-chip"><b id="pb-m">00</b><span>Min</span></span><span class="pb-chip"><b id="pb-s">00</b><span>Seg</span></span></span>
+    <small>Sin mínimo de compra · recibilo el miércoles 28/10 · <a href="carrito.html">Pedir ahora</a></small>
+  </div>
   <div class="countdown-bar" id="countdown-bar" style="display:none;">
     <span id="cd-near">Pedí antes de
       <span class="cd-chips">
@@ -704,6 +715,28 @@
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+</script>
+
+<script>
+  // Promo puntual: envío gratis a CABA sin mínimo hasta el 26/10/2026 23:59:59 (hora Argentina)
+  (function(){
+    const UNTIL = new Date('2026-10-26T23:59:59-03:00').getTime();
+    const bar = document.getElementById('promo-bar');
+    function tick(){
+      const left = UNTIL - Date.now();
+      const on = left > 0;
+      if(bar) bar.style.display = on ? 'block' : 'none';
+      document.querySelectorAll('.promo-only').forEach(e => e.style.display = on ? '' : 'none');
+      document.querySelectorAll('.std-ship').forEach(e => e.style.display = on ? 'none' : '');
+      if(!on) return false;
+      const h = Math.floor(left/3600000), m = Math.floor((left%3600000)/60000), sec = Math.floor((left%60000)/1000);
+      document.getElementById('pb-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('pb-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('pb-s').textContent = String(sec).padStart(2,'0');
+      return true;
+    }
+    if(tick()){ const iv = setInterval(() => { if(!tick()) clearInterval(iv); }, 1000); }
+  })();
 </script>
 <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8510c6c34f194785829608cb945e2cbd"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

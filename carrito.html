@@ -151,9 +151,21 @@
   .field-error{font-size:11.5px; color:var(--red-dark); margin-top:4px; display:none;}
   .field.invalid input, .field.invalid textarea{border-color:var(--red);}
   .field.invalid .field-error{display:block;}
+
+  /* PROMO ENVÍO GRATIS */
+  .promo-bar{background:#822D2C; color:#F6F1E6; text-align:center; padding:10px 14px; font-size:14px; font-weight:700; display:none;}
+  .promo-bar small{display:block; font-weight:500; font-size:12px; opacity:.85; margin-top:2px;}
+  .pb-chips{display:inline-flex; gap:6px; margin:0 6px; vertical-align:middle;}
+  .pb-chip{background:#241A17; color:#F6F1E6; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:14px; padding:5px 9px 4px; border-radius:8px; display:inline-flex; flex-direction:column; align-items:center; line-height:1.05; min-width:30px;}
+  .pb-chip span{font-size:7px; font-weight:700; color:rgba(246,241,230,.65); text-transform:uppercase; letter-spacing:.05em; margin-top:1px;}
+  @media (max-width:600px){ .promo-bar{font-size:12.5px; padding:8px 10px;} .pb-chip{font-size:12px; padding:3px 6px 2.5px; min-width:24px;} .pb-chips{gap:4px; margin:0 4px;} }
 </style>
 </head>
 <body>
+<div class="promo-bar" id="promo-bar">Pedí con envío gratis a CABA hasta
+  <span class="pb-chips"><span class="pb-chip"><b id="pb-h">00</b><span>Hs</span></span><span class="pb-chip"><b id="pb-m">00</b><span>Min</span></span><span class="pb-chip"><b id="pb-s">00</b><span>Seg</span></span></span>
+  <small>Sin mínimo de compra · recibilo el miércoles 28/10</small>
+</div>
 <div class="wrap">
   <div class="logo">
     <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F6F1E6"/><circle cx="12" cy="10" r="1.3" fill="#822D2C"/><circle cx="14.5" cy="14.5" r="1.3" fill="#822D2C"/><circle cx="9.5" cy="15" r="1.3" fill="#822D2C"/></svg></div>
@@ -272,6 +284,9 @@
     2: {label: "GBA zona 2", fee: 13000, freeFrom: null},
     3: {label: "GBA zona 3", fee: 27000, freeFrom: null},
   };
+  // Promo puntual: envío gratis a CABA, sin mínimo, hasta el 26/10/2026 23:59:59 (hora Argentina)
+  const PROMO_UNTIL = new Date('2026-10-26T23:59:59-03:00').getTime();
+  const promoOn = () => Date.now() <= PROMO_UNTIL;
   // Por ahora fuera de cobertura: Marcos Paz, Gral. Rodríguez, La Plata y alrededores, Zárate, Campana, Luján
   const OUT_RANGES = [[1727,1727],[1748,1749],[1890,1929],[2800,2805],[6700,6700]];
   const ZONE2_RANGES = [[1600,1618],[1636,1679],[1686,1689],[1702,1714],[1822,1832],[1870,1876]];
@@ -288,6 +303,7 @@
   function shippingFor(zone, subtotal){
     const z = ZONES[zone];
     if(!z || subtotal <= 0) return 0;
+    if(zone === 1 && promoOn()) return 0;
     return (z.freeFrom && subtotal >= z.freeFrom) ? 0 : z.fee;
   }
   const FREE_SHIPPING_THRESHOLD = ZONES[1].freeFrom;
@@ -375,12 +391,12 @@
     if(subtotal === 0){
       shipEl.textContent = '$0'; hintEl.textContent = '';
     } else if(zone === null){
-      shipEl.textContent = 'Ingresá tu CP'; hintEl.textContent = 'Envío a CABA desde $9.000 (gratis desde $110.000). En GBA varía según la zona.';
+      shipEl.textContent = 'Ingresá tu CP'; hintEl.textContent = promoOn() ? 'Hoy, envío gratis a CABA sin mínimo. En GBA varía según la zona.' : 'Envío a CABA desde $9.000 (gratis desde $110.000). En GBA varía según la zona.';
     } else if(zone === 0){
       shipEl.textContent = '—'; hintEl.textContent = 'Por ahora no llegamos a tu zona. Repartimos en CABA y GBA cercano.';
     } else {
       shipEl.textContent = shipping === 0 ? 'Gratis' : fmt(shipping);
-      hintEl.textContent = (zone === 1 && shipping > 0)
+      hintEl.textContent = (zone === 1 && shipping === 0 && promoOn()) ? 'Promo de hoy: envío gratis a CABA, sin mínimo.' : (zone === 1 && shipping > 0)
         ? 'Envío gratis en CABA desde ' + fmt(ZONES[1].freeFrom) + '.'
         : (zone > 1 ? 'En GBA el envío se cobra siempre, según la zona.' : '');
     }
@@ -522,6 +538,24 @@
       payBtn.textContent = "Pagar con Mercado Pago →";
     }
   });
+
+  // Timer de la promo de envío gratis
+  (function(){
+    const bar = document.getElementById('promo-bar');
+    function tick(){
+      const left = PROMO_UNTIL - Date.now();
+      if(left <= 0){ bar.style.display = 'none'; return false; }
+      bar.style.display = 'block';
+      const h = Math.floor(left/3600000), m = Math.floor((left%3600000)/60000), s = Math.floor((left%60000)/1000);
+      document.getElementById('pb-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('pb-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('pb-s').textContent = String(s).padStart(2,'0');
+      return true;
+    }
+    if(tick()){
+      const iv = setInterval(() => { if(!tick()){ clearInterval(iv); render(); } }, 1000);
+    }
+  })();
 
   render();
 </script>
