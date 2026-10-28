@@ -280,9 +280,9 @@
   // Envío por zona según código postal (mantener igual que en el backend)
   // Zona 1: CABA (gratis desde $110.000). Zonas 2 y 3: se cobra siempre.
   const ZONES = {
-    1: {label: "CABA", fee: 9000, freeFrom: 110000},
-    2: {label: "GBA zona 2", fee: 13000, freeFrom: null},
-    3: {label: "GBA zona 3", fee: 27000, freeFrom: null},
+    1: {label: "CABA", fee: 6300, freeFrom: 110000},
+    2: {label: "GBA zona 2", fee: 9100, freeFrom: null},
+    3: {label: "GBA zona 3", fee: 18900, freeFrom: null},
   };
   // Promo puntual: envío gratis a CABA, sin mínimo, hasta el 26/10/2026 23:59:59 (hora Argentina)
   const PROMO_UNTIL = new Date('2026-10-26T23:59:59-03:00').getTime();
@@ -391,7 +391,7 @@
     if(subtotal === 0){
       shipEl.textContent = '$0'; hintEl.textContent = '';
     } else if(zone === null){
-      shipEl.textContent = 'Ingresá tu CP'; hintEl.textContent = promoOn() ? 'Hoy, envío gratis a CABA sin mínimo. En GBA varía según la zona.' : 'Envío a CABA desde $9.000 (gratis desde $110.000). En GBA varía según la zona.';
+      shipEl.textContent = 'Ingresá tu CP'; hintEl.textContent = promoOn() ? 'Hoy, envío gratis a CABA sin mínimo. En GBA varía según la zona.' : 'Envío a CABA desde $6.300 (gratis desde $110.000). En GBA varía según la zona.';
     } else if(zone === 0){
       shipEl.textContent = '—'; hintEl.textContent = 'Por ahora no llegamos a tu zona. Repartimos en CABA y GBA cercano.';
     } else {
