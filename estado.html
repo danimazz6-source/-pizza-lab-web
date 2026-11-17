@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --charcoal:#241A17;
@@ -60,19 +60,33 @@
     margin:0 8px 8px;
   }
   .btn.ghost{background:transparent; color:var(--charcoal); border-color:var(--charcoal);}
+
+  /* ===== NUEVO BRANDING ===== */
+  :root{--cream:#F4EEE2;--cream-2:#EBE2D0;--charcoal:#2a1d19;--red-dark:#5f1d1d;--line:rgba(42,29,25,.2);--grey-mid:rgba(42,29,25,.62)}
+  body{font-family:'Poppins',sans-serif;font-weight:300}
+  h1,h2,.display{font-family:'Lora',serif;font-weight:400}
+  .mono{font-family:'Lora',serif}
+  .logo{font-family:'Lora',serif;font-weight:400;font-size:26px;letter-spacing:-.01em;color:var(--red);gap:14px}
+  .logo img{width:44px;display:block}
+  .pill-btn,.pay-btn,.btn{font-family:'Poppins',sans-serif;font-weight:400;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+
+  .wrap{max-width:640px}
+  .logo{justify-content:center;margin-bottom:56px}
+  h1{font-size:clamp(38px,6vw,58px);letter-spacing:-.03em;line-height:1.05}
+  .sub{font-weight:300;line-height:1.8}
+  .card{background:transparent;border:1px solid var(--line);border-radius:28px;padding:28px 30px;font-weight:300}
+  .card b{font-weight:500}
+  .btn{background:var(--red);border:1px solid var(--red);padding:16px 30px}
+  .btn.ghost{background:transparent;color:var(--red);border-color:var(--red)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="logo">
-    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L20 19 Q12 22 4 19 Z" fill="#F6F1E6"/><circle cx="12" cy="10" r="1.3" fill="#822D2C"/><circle cx="14.5" cy="14.5" r="1.3" fill="#822D2C"/><circle cx="9.5" cy="15" r="1.3" fill="#822D2C"/></svg></div>
-    Fina Protein Lab
-  </div>
+  <div class="logo"><img src="mascot.png" alt="">Fina Protein Lab</div>
 
   <div id="content"></div>
 
   <div style="margin-top:8px;">
-    <a href="https://wa.me/5491173609839?text=Hola!%20Acabo%20de%20confirmar%20mi%20pedido%20en%20la%20web%2C%20les%20paso%20mis%20datos%20para%20coordinar%20la%20entrega." target="_blank" rel="noopener" class="btn" id="wsp-btn" style="display:none;">Avisanos por WhatsApp</a>
     <a href="index.html" class="btn ghost">Volver a la web</a>
   </div>
 </div>
@@ -86,8 +100,8 @@
       icon: 'ok',
       svg: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#F6F1E6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       title: '¡Pedido confirmado!',
-      sub: 'Tu pago se acreditó correctamente. Preparamos tu pizza fresca y te la entregamos el próximo miércoles.',
-      card: 'Vas a recibir la confirmación por Mercado Pago. Cualquier duda sobre tu pedido, escribinos por WhatsApp con tu nombre y el número de operación.'
+      sub: 'Tu pago se acreditó correctamente. Ya estamos preparando tu pedido.',
+      card: 'Te va a llegar un correo de confirmación, con los detalles de tu compra, al mail que tenés registrado en Mercado Pago.'
     },
     approved: null,
     rechazado: {
@@ -120,9 +134,6 @@
     <div class="card">${s.card}</div>
   `;
 
-  if(s === STATES.aprobado){
-    document.getElementById('wsp-btn').style.display = 'inline-flex';
-  }
 </script>
 <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8510c6c34f194785829608cb945e2cbd"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
